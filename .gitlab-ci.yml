@@ -1,0 +1,18 @@
+image: node:20
+
+pages:
+  cache:
+    paths:
+      - node_modules/
+
+  script:
+    - npm ci
+    - npm run build
+    - mv dist public
+
+  artifacts:
+    paths:
+      - public
+
+  only:
+    - main
