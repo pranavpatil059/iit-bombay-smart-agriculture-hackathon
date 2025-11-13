@@ -3,12 +3,13 @@ image: node:20
 pages:
   cache:
     paths:
-      - node_modules/
+      - frontend/node_modules/
 
   script:
+    - cd frontend        # 👈 go into your vite app folder
     - npm ci
     - npm run build
-    - mv dist public
+    - mv dist ../public  # move build output for GitLab Pages
 
   artifacts:
     paths:
@@ -16,3 +17,4 @@ pages:
 
   only:
     - main
+
