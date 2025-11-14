@@ -1,15 +1,27 @@
-# The Docker image that will be used to build your app
 image: node:lts
-create-pages:
-  pages:
-    # The folder that contains the files to be exposed at the Page URL
-    publish: public
-  rules:
-    # This ensures that only pushes to the default branch will trigger
-    # a pages deploy
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  # Functions that should be executed before the build script is run
-  before_script:
-    - npm ci
+
+stages:
+  - build
+  - deploy
+
+build-frontend:
+  stage: build
   script:
-    - npm install && npm run build && cp -r dist public
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+pages:
+  stage: deploy
+  script:
+    - cp -r dist public   # GitLab Pages requires 'public'
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
