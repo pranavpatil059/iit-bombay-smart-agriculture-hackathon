@@ -1,27 +1,42 @@
-image: node:lts
+# .gitlab-ci.yml
 
 stages:
   - build
   - deploy
 
-build-frontend:
-  stage: build
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - dist
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+# Cache node_modules to speed up builds
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - frontend/node_modules/
 
-pages:
-  stage: deploy
+# Build frontend
+build_frontend:
+  stage: build
+  image: node:20
   script:
-    - cp -r dist public   # GitLab Pages requires 'public'
+    - cd frontend
+    - npm ci
+    - npx update-browserslist-db@latest --update-db # optional, removes warning
+    - npm run build
+    - mv dist ../public
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    expire_in: 1 week
+  only:
+    - main
 
+# Deploy to GitLab Pages
+pages:
+  stage: deploy
+  dependencies:
+    - build_frontend
+  script:
+    - mkdir .public
+    - cp -r public/* .public/
+  artifacts:
+    paths:
+      - .public
+  only:
+    - main
