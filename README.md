@@ -3,7 +3,8 @@
 🎥 PPT 
 https://drive.google.com/file/d/1E2adk5aaDP6sg4SpFZZNT4iXoBapIVX3/view?usp=sharing
 
-📹 IoT Demo Video
+ Presentation Video
+https://drive.google.com/file/d/1tK1JjaKVMM8mU8swr-yisGTmSR8r36h2/view?usp=sharing
 
 🚀 About the Project
 
