@@ -1,6 +1,7 @@
 🌱 Smart Agriculture Assistant
 
-🎥 PPT Explanation
+🎥 PPT 
+https://drive.google.com/file/d/1E2adk5aaDP6sg4SpFZZNT4iXoBapIVX3/view?usp=sharing
 
 📹 IoT Demo Video
 
