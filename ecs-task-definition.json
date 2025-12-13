@@ -1,0 +1,38 @@
+{
+  "family": "smart-agriculture",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "your-account.dkr.ecr.region.amazonaws.com/smart-agriculture-frontend:latest",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true
+    },
+    {
+      "name": "backend",
+      "image": "your-account.dkr.ecr.region.amazonaws.com/smart-agriculture-backend:latest",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "MONGO_URI",
+          "value": "your-mongodb-connection-string"
+        }
+      ],
+      "essential": true
+    }
+  ]
+}

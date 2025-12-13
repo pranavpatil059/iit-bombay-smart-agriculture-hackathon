@@ -18,7 +18,7 @@ export default function Landselling() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await fetch("https://iiit-naya-raipur-hakathon.vercel.app/api/land"); // Update with your actual API URL
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/land`);
   
         if (!response.ok) {
           throw new Error("Failed to fetch listings");

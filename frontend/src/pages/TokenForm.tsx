@@ -23,7 +23,7 @@ const TokenForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("https://iiit-naya-raipur-hakathon.vercel.app/api/tokens", formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/tokens`, formData);
       setMessage("✅ Token added successfully!");
       setFormData({ name: "", contact: "", landArea: "", email: "", Crop: "" });
     } catch (error) {
@@ -34,7 +34,7 @@ const TokenForm: React.FC = () => {
   // Fetch status by phone number
   const checkStatus = async () => {
     try {
-      const response = await axios.get(`https://iiit-naya-raipur-hakathon.vercel.app/api/tokens/status/${phone}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tokens/status/${phone}`);
       setStatusData(response.data);
       setMessage("");
     } catch (error) {

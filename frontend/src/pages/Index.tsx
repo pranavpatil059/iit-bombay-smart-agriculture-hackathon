@@ -7,6 +7,10 @@ import { Button } from "@/components/ui/button";
 import Layout from '@/components/Layout';
 import HeroSection from '@/components/HeroSection';
 import FeatureCard from '@/components/FeatureCard';
+import HackathonFeatures from '@/components/HackathonFeatures';
+import TechStack from '@/components/TechStack';
+import DemoSection from '@/components/DemoSection';
+import ImpactMetrics from '@/components/ImpactMetrics';
 
 const Index = () => {
   const { toast } = useToast();
@@ -223,6 +227,19 @@ const Index = () => {
 
         </div>
       </section>
+
+      {/* Demo Section */}
+      <DemoSection />
+
+      {/* Hackathon Features Section */}
+      <HackathonFeatures />
+      
+      {/* Tech Stack Section */}
+      <TechStack />
+
+      {/* Impact Metrics Section */}
+      <ImpactMetrics />
+
     </Layout>
   );
 };

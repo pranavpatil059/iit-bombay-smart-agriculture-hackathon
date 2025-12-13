@@ -1,12 +1,13 @@
 const express = require("express");
-const Together =require("together-ai"); // ES Module import
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const router = express.Router();
 
-// Initialize Together AI with environment variable
-const together = new Together(); // uses TOGETHER_API_KEY from .env
+// Initialize Gemini AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "your-gemini-api-key");
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-// POST endpoint for AI text generation
+// POST endpoint for AI text generation (Gemini)
 router.post("/chatboat", async (req, res) => {
   try {
     const { prompt } = req.body;
@@ -15,23 +16,24 @@ router.post("/chatboat", async (req, res) => {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    const response = await together.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      model: "deepseek-ai/DeepSeek-V3",
-    });
+    // Add agriculture context to prompt
+    const agriculturePrompt = `You are an expert agricultural assistant for Indian farmers. 
+    Answer in simple Hindi/English mix that farmers can understand. 
+    Focus on practical, actionable advice for Indian farming conditions.
+    
+    Question: ${prompt}`;
 
-    const result = response.choices[0].message.content;
-    res.json({ success: true, data: result });
+    const result = await model.generateContent(agriculturePrompt);
+    const response = await result.response;
+    const text = response.text();
+
+    res.json({ success: true, data: text });
   } catch (error) {
     console.error("Error generating AI response:", error);
-    res.status(500).json({
-      success: false,
-      error: "Failed to generate AI response",
+    // Fallback response if Gemini API fails
+    r success: false,
+      error: "Failed to generate AI response. Please check your Gemini API key.",
+      details: error.message
     });
   }
 });
@@ -46,9 +48,9 @@ router.post("/estimate", async (req, res) => {
     }
 
     const prompt = `
-      Estimate yield and suggestions based on the following details.
+      Estimate yield and suggestions based on the following details for Indian farming conditions.
       Return only valid JSON format without markdown or explanations.
-      try to give each answer with just 30 words at max
+      Keep each answer concise (max 30 words).
       {
         "Estimated_yield": "{your_data}",
         "Water_required": "{your_data}",
@@ -69,17 +71,9 @@ router.post("/estimate", async (req, res) => {
       - Additional Info: ${data.additionalInfo}
     `;
 
-    const response = await together.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      model: "deepseek-ai/DeepSeek-V3",
-    });
-
-    let result = response.choices[0].message.content;
+    const response = await model.generateContent(prompt);
+    const aiResponse = await response.response;
+    let result = aiResponse.text();
 
     result = result.replace(/```json|```/g, "").trim();
 
@@ -131,17 +125,9 @@ router.post("/crop_data", async (req, res) => {
       }
     `;
 
-    const response = await together.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      model: "deepseek-ai/DeepSeek-V3",
-    });
-
-    let result = response.choices[0].message.content;
+    const response = await model.generateContent(prompt);
+    const aiResponse = await response.response;
+    let result = aiResponse.text();
 
     result = result.replace(/```json|```/g, "").trim();
 

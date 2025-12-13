@@ -30,7 +30,7 @@ const SellerManagement: React.FC = () => {
 
   const fetchSellers = async () => {
     try {
-      const response = await axios.get('/api/sellers');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/sellers`);
       setSellers(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error('Error fetching sellers:', error);
@@ -47,7 +47,7 @@ const SellerManagement: React.FC = () => {
 
   const addSeller = async () => {
     try {
-      await axios.post('https://iiit-naya-raipur-hakathon.vercel.app/api/sellers/add', formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/sellers/add`, formData);
       fetchSellers();
       setAlertMessage('Seller successfully added!');
       setTimeout(() => setAlertMessage(null), 3000);

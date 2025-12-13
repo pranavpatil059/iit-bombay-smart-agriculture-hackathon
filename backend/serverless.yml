@@ -1,0 +1,36 @@
+service: iit-bombay-agriculture-backend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    MONGO_URI: ${env:MONGO_URI}
+    JWT_SECRET: ${env:JWT_SECRET}
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+  
+functions:
+  api:
+    handler: lambda.handler
+    timeout: 30
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+
+plugins:
+  - serverless-offline

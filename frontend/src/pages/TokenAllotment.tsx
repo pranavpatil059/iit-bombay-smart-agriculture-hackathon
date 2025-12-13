@@ -21,7 +21,7 @@ const TokenAllotment: React.FC = () => {
     }
   
     try {
-      await axios.put("https://iiit-naya-raipur-hakathon.vercel.app/api/tokens/update", {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/tokens/update`, {
         phone,
         allottedDate,  // Ensure this matches backend field "Alloteddate"
       });
