@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { Leaf, BarChart3, FileText, Image, ShoppingBag } from 'lucide-react';
+import { BarChart3, FileText, Image, ShoppingBag, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +46,13 @@ const Index = () => {
       description: "Connect directly with consumers and industries to sell your produce without intermediaries.",
       chip: "Marketplace",
       link: "/direct-market",
+    },
+    {
+      icon: <Building2 className="h-6 w-6" />,
+      title: "Farm Loan Hub",
+      description: "Connect with banks offering low-interest agricultural loans. Compare rates, calculate EMI, and apply online.",
+      chip: "Banking",
+      link: "/farm-loans",
     },
   ];
 
@@ -106,7 +113,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {features.map((feature, index) => (
               <Link to={feature.link} key={index} className="block hover:no-underline">
                 <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow border">
