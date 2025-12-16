@@ -9,6 +9,7 @@ import { Calculator, MapPin, Phone, ExternalLink, Building2, Percent, Clock, Fil
 import Layout from '@/components/Layout';
 import { useToast } from "@/hooks/use-toast";
 import axios from 'axios';
+import EnhancedParticleBackground from '@/components/EnhancedParticleBackground';
 
 interface Bank {
   id: string;
@@ -245,8 +246,11 @@ const FarmLoans = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">Loading bank information...</div>
+        {/* Enhanced Animated Background */}
+        <EnhancedParticleBackground theme="finance" className="opacity-90" />
+        
+        <div className="container mx-auto px-4 py-8 relative z-10">
+          <div className="text-center text-white">Loading bank information...</div>
         </div>
       </Layout>
     );
@@ -254,10 +258,13 @@ const FarmLoans = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      {/* Enhanced Animated Background */}
+      <EnhancedParticleBackground theme="finance" className="opacity-90" />
+      
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-green-800 mb-4">🏦 Farm Loan Hub</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">🏦 Farm Loan Hub</h1>
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto drop-shadow-md">
             Connect with banks offering low-interest agricultural loans. Compare rates, calculate EMI, and apply directly through official bank websites.
           </p>
         </div>

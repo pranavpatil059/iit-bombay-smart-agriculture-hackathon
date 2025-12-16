@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { MapPin, Smartphone, User, CreditCard, Loader2, CheckCircle, XCircle, Navigation } from "lucide-react";
 import { toast } from "sonner";
+import EnhancedParticleBackground from "@/components/EnhancedParticleBackground";
 
 // Form validation schema
 const tokenFormSchema = z.object({
@@ -138,14 +139,18 @@ const TokenForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen relative py-8 px-4">
+      {/* Enhanced Animated Background */}
+      <EnhancedParticleBackground theme="agriculture" className="opacity-85" />
+      
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-gray-900/70 to-black/80"></div>
+      <div className="max-w-4xl mx-auto space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-gray-900 flex items-center justify-center gap-3">
+          <h1 className="text-4xl font-bold text-white flex items-center justify-center gap-3">
             🌱 <span>Token Registration System</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto">
             Register for agricultural services with enhanced security and location verification
           </p>
         </div>
