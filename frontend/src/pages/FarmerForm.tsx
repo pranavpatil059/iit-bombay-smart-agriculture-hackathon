@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { User, MapPin,  Phone, Mail, Sprout } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const FarmerForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -54,10 +55,13 @@ const FarmerForm: React.FC = () => {
 
   return (
     <Layout>
-      <div className="min-h-[calc(100vh-160px)] flex items-center justify-center bg-background/95 py-12">
-        <div className="max-w-md w-full mx-auto p-6 rounded-lg border border-border/40 shadow-lg bg-card/80 backdrop-blur-sm">
-          <h2 className="text-2xl font-bold text-center mb-6 text-foreground">
-            Farmer Portal
+      {/* Animated Particle Background */}
+      <ParticleBackground className="opacity-40" />
+      
+      <div className="min-h-[calc(100vh-160px)] flex items-center justify-center py-12 relative z-10">
+        <div className="max-w-md w-full mx-auto p-6 rounded-lg border border-red-500/20 shadow-2xl bg-black/70 backdrop-blur-md">
+          <h2 className="text-2xl font-bold text-center mb-6 text-white">
+            🌾 Farmer Portal
           </h2>
 
           <div className="mb-8">
