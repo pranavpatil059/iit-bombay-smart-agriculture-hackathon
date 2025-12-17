@@ -25,6 +25,7 @@ import UpdateCrop from "./pages/UpdateCrop";
 import TokenForm from "./pages/TokenForm";
 import TokenAllotment from "./pages/TokenAllotment";
 import Workplace from "./pages/workplace";
+import IoTMonitoring from "./pages/IoTMonitoring";
 import FarmLoans from "./pages/FarmLoans";
 const queryClient = new QueryClient();
 import Prices from "./pages/Prices";
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/updatecrop" element={<UpdateCrop />}/>
             <Route path="/allottoken" element={<TokenAllotment />}/>
             <Route path='/workplace' element={<Workplace></Workplace>}></Route>
+            <Route path="/iot-monitoring" element={<IoTMonitoring />} />
             <Route path="/farm-loans" element={<FarmLoans />} />
             {/* <Route path="/voice-control" element={<VoiceControl />} /> */}
             <Route path="*" element={<NotFound />} />

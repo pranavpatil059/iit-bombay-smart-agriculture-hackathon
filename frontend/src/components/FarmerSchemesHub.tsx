@@ -37,74 +37,75 @@ const FarmerSchemesHub = () => {
   const [selectedState, setSelectedState] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('schemes');
+  const [language, setLanguage] = useState('english'); // Default to English
 
-  // Daily Updates Data
+  // Daily Updates Data with bilingual support
   const dailyUpdates = [
     {
       id: 1,
       date: "13 Dec 2024",
-      title: "PM-KISAN 16वीं किस्त जारी - ₹2000 सीधे खाते में",
-      description: "प्रधानमंत्री ने 9.5 करोड़ किसानों के खाते में ₹19,000 करोड़ की राशि ट्रांसफर की",
+      title: language === 'english' ? "PM-KISAN 16th Installment Released - ₹2000 Direct to Account" : "PM-KISAN 16वीं किस्त जारी - ₹2000 सीधे खाते में",
+      description: language === 'english' ? "Prime Minister transferred ₹19,000 crore to 9.5 crore farmers' accounts" : "प्रधानमंत्री ने 9.5 करोड़ किसानों के खाते में ₹19,000 करोड़ की राशि ट्रांसफर की",
       type: "payment",
       urgent: true,
       amount: "₹2,000",
-      beneficiaries: "9.5 करोड़ किसान"
+      beneficiaries: language === 'english' ? "9.5 Crore Farmers" : "9.5 करोड़ किसान"
     },
     {
       id: 2,
       date: "12 Dec 2024", 
-      title: "Kisan Credit Card नई ब्याज दरें घोषित",
-      description: "KCC पर 4% वार्षिक ब्याज दर, 3 लाख तक का लोन बिना गारंटी",
+      title: language === 'english' ? "Kisan Credit Card New Interest Rates Announced" : "Kisan Credit Card नई ब्याज दरें घोषित",
+      description: language === 'english' ? "4% annual interest rate on KCC, loan up to ₹3 lakh without guarantee" : "KCC पर 4% वार्षिक ब्याज दर, 3 लाख तक का लोन बिना गारंटी",
       type: "loan",
       urgent: false,
-      amount: "₹3 लाख तक",
-      beneficiaries: "सभी पात्र किसान"
+      amount: language === 'english' ? "Up to ₹3 Lakh" : "₹3 लाख तक",
+      beneficiaries: language === 'english' ? "All Eligible Farmers" : "सभी पात्र किसान"
     },
     {
       id: 3,
       date: "11 Dec 2024",
-      title: "Pradhan Mantri Fasal Bima Yojana - रबी सीजन रजिस्ट्रेशन",
-      description: "रबी फसलों के लिए बीमा रजिस्ट्रेशन 31 दिसंबर तक, केवल 2% प्रीमियम",
+      title: language === 'english' ? "Pradhan Mantri Fasal Bima Yojana - Rabi Season Registration" : "Pradhan Mantri Fasal Bima Yojana - रबी सीजन रजिस्ट्रेशन",
+      description: language === 'english' ? "Insurance registration for Rabi crops till 31st December, only 2% premium" : "रबी फसलों के लिए बीमा रजिस्ट्रेशन 31 दिसंबर तक, केवल 2% प्रीमियम",
       type: "insurance",
       urgent: true,
-      amount: "2% प्रीमियम",
-      beneficiaries: "रबी किसान"
+      amount: language === 'english' ? "2% Premium" : "2% प्रीमियम",
+      beneficiaries: language === 'english' ? "Rabi Farmers" : "रबी किसान"
     },
     {
       id: 4,
       date: "10 Dec 2024",
-      title: "Solar Pump Subsidy Scheme - 90% सब्सिडी",
-      description: "सोलर पंप पर 90% तक सब्सिडी, ऑनलाइन आवेदन शुरू",
+      title: language === 'english' ? "Solar Pump Subsidy Scheme - 90% Subsidy" : "Solar Pump Subsidy Scheme - 90% सब्सिडी",
+      description: language === 'english' ? "Up to 90% subsidy on solar pumps, online applications started" : "सोलर पंप पर 90% तक सब्सिडी, ऑनलाइन आवेदन शुरू",
       type: "subsidy",
       urgent: false,
-      amount: "90% सब्सिडी",
-      beneficiaries: "छोटे किसान"
+      amount: language === 'english' ? "90% Subsidy" : "90% सब्सिडी",
+      beneficiaries: language === 'english' ? "Small Farmers" : "छोटे किसान"
     },
     {
       id: 5,
       date: "09 Dec 2024",
-      title: "MSP रेट्स अपडेट - गेहूं ₹2275/क्विंटल",
-      description: "रबी सीजन के लिए न्यूनतम समर्थन मूल्य घोषित, गेहूं में ₹150 की बढ़ोतरी",
+      title: language === 'english' ? "MSP Rates Update - Wheat ₹2275/Quintal" : "MSP रेट्स अपडेट - गेहूं ₹2275/क्विंटल",
+      description: language === 'english' ? "Minimum Support Price announced for Rabi season, ₹150 increase in wheat" : "रबी सीजन के लिए न्यूनतम समर्थन मूल्य घोषित, गेहूं में ₹150 की बढ़ोतरी",
       type: "msp",
       urgent: false,
-      amount: "₹2,275/क्विंटल",
-      beneficiaries: "गेहूं उत्पादक"
+      amount: "₹2,275/Quintal",
+      beneficiaries: language === 'english' ? "Wheat Producers" : "गेहूं उत्पादक"
     }
   ];
 
-  // Comprehensive Farmer Schemes
+  // Comprehensive Farmer Schemes with bilingual support
   const farmerSchemes = [
     {
       id: 1,
       name: "PM-KISAN Samman Nidhi",
       nameHindi: "प्रधानमंत्री किसान सम्मान निधि",
-      description: "सभी भूमिधारक किसान परिवारों को ₹6000 प्रति वर्ष",
-      amount: "₹6,000/वर्ष",
-      eligibility: "2 हेक्टेयर तक भूमि वाले किसान",
-      applicationProcess: "ऑनलाइन/CSC केंद्र",
-      documents: ["आधार कार्ड", "बैंक पासबुक", "भूमि दस्तावेज"],
+      description: language === 'english' ? "₹6000 per year to all landholding farmer families" : "सभी भूमिधारक किसान परिवारों को ₹6000 प्रति वर्ष",
+      amount: language === 'english' ? "₹6,000/year" : "₹6,000/वर्ष",
+      eligibility: language === 'english' ? "Farmers with up to 2 hectares of land" : "2 हेक्टेयर तक भूमि वाले किसान",
+      applicationProcess: language === 'english' ? "Online/CSC Center" : "ऑनलाइन/CSC केंद्र",
+      documents: language === 'english' ? ["Aadhaar Card", "Bank Passbook", "Land Documents"] : ["आधार कार्ड", "बैंक पासबुक", "भूमि दस्तावेज"],
       status: "Active",
-      beneficiaries: "12 करोड़+",
+      beneficiaries: language === 'english' ? "12 Crore+" : "12 करोड़+",
       category: "financial",
       lastUpdate: "13 Dec 2024",
       website: "https://pmkisan.gov.in",
@@ -114,13 +115,13 @@ const FarmerSchemesHub = () => {
       id: 2,
       name: "Kisan Credit Card (KCC)",
       nameHindi: "किसान क्रेडिट कार्ड",
-      description: "कृषि और संबद्ध गतिविधियों के लिए क्रेडिट सुविधा",
-      amount: "₹3 लाख तक",
-      eligibility: "सभी किसान (भूमि मालिक/किरायेदार)",
-      applicationProcess: "बैंक शाखा/ऑनलाइन",
-      documents: ["आधार कार्ड", "पैन कार्ड", "भूमि दस्तावेज", "बैंक स्टेटमेंट"],
+      description: language === 'english' ? "Credit facility for agriculture and allied activities" : "कृषि और संबद्ध गतिविधियों के लिए क्रेडिट सुविधा",
+      amount: language === 'english' ? "Up to ₹3 Lakh" : "₹3 लाख तक",
+      eligibility: language === 'english' ? "All farmers (landowners/tenants)" : "सभी किसान (भूमि मालिक/किरायेदार)",
+      applicationProcess: language === 'english' ? "Bank Branch/Online" : "बैंक शाखा/ऑनलाइन",
+      documents: language === 'english' ? ["Aadhaar Card", "PAN Card", "Land Documents", "Bank Statement"] : ["आधार कार्ड", "पैन कार्ड", "भूमि दस्तावेज", "बैंक स्टेटमेंट"],
       status: "Active",
-      beneficiaries: "7 करोड़+",
+      beneficiaries: language === 'english' ? "7 Crore+" : "7 करोड़+",
       category: "credit",
       lastUpdate: "12 Dec 2024",
       website: "https://www.nabard.org/auth/writereaddata/tender/1608180417KCC%20Guidelines%202018-19.pdf",
@@ -130,13 +131,13 @@ const FarmerSchemesHub = () => {
       id: 3,
       name: "Pradhan Mantri Fasal Bima Yojana",
       nameHindi: "प्रधानमंत्री फसल बीमा योजना",
-      description: "प्राकृतिक आपदाओं से फसल नुकसान का बीमा",
-      amount: "2% प्रीमियम (खरीफ), 1.5% (रबी)",
-      eligibility: "सभी किसान (भूमि मालिक/किरायेदार)",
-      applicationProcess: "बैंक/बीमा कंपनी/CSC",
-      documents: ["आधार कार्ड", "बैंक पासबुक", "भूमि दस्तावेज", "बुआई प्रमाण"],
+      description: language === 'english' ? "Insurance for crop loss due to natural calamities" : "प्राकृतिक आपदाओं से फसल नुकसान का बीमा",
+      amount: language === 'english' ? "2% Premium (Kharif), 1.5% (Rabi)" : "2% प्रीमियम (खरीफ), 1.5% (रबी)",
+      eligibility: language === 'english' ? "All farmers (landowners/tenants)" : "सभी किसान (भूमि मालिक/किरायेदार)",
+      applicationProcess: language === 'english' ? "Bank/Insurance Company/CSC" : "बैंक/बीमा कंपनी/CSC",
+      documents: language === 'english' ? ["Aadhaar Card", "Bank Passbook", "Land Documents", "Sowing Certificate"] : ["आधार कार्ड", "बैंक पासबुक", "भूमि दस्तावेज", "बुआई प्रमाण"],
       status: "Active",
-      beneficiaries: "5.5 करोड़+",
+      beneficiaries: language === 'english' ? "5.5 Crore+" : "5.5 करोड़+",
       category: "insurance",
       lastUpdate: "11 Dec 2024",
       website: "https://pmfby.gov.in",
@@ -146,13 +147,13 @@ const FarmerSchemesHub = () => {
       id: 4,
       name: "PM Kusum Yojana",
       nameHindi: "प्रधानमंत्री कुसुम योजना",
-      description: "सोलर पंप और ग्रिड कनेक्टेड सोलर प्लांट",
-      amount: "90% सब्सिडी",
-      eligibility: "सभी किसान और किसान समूह",
-      applicationProcess: "राज्य नोडल एजेंसी",
-      documents: ["आधार कार्ड", "भूमि दस्तावेज", "बिजली बिल", "बैंक पासबुक"],
+      description: language === 'english' ? "Solar pumps and grid-connected solar plants" : "सोलर पंप और ग्रिड कनेक्टेड सोलर प्लांट",
+      amount: language === 'english' ? "90% Subsidy" : "90% सब्सिडी",
+      eligibility: language === 'english' ? "All farmers and farmer groups" : "सभी किसान और किसान समूह",
+      applicationProcess: language === 'english' ? "State Nodal Agency" : "राज्य नोडल एजेंसी",
+      documents: language === 'english' ? ["Aadhaar Card", "Land Documents", "Electricity Bill", "Bank Passbook"] : ["आधार कार्ड", "भूमि दस्तावेज", "बिजली बिल", "बैंक पासबुक"],
       status: "Active",
-      beneficiaries: "20 लाख+",
+      beneficiaries: language === 'english' ? "20 Lakh+" : "20 लाख+",
       category: "energy",
       lastUpdate: "10 Dec 2024",
       website: "https://pmkusum.mnre.gov.in",
@@ -162,13 +163,13 @@ const FarmerSchemesHub = () => {
       id: 5,
       name: "Soil Health Card Scheme",
       nameHindi: "मृदा स्वास्थ्य कार्ड योजना",
-      description: "मिट्टी की जांच और पोषक तत्वों की जानकारी",
-      amount: "निःशुल्क",
-      eligibility: "सभी किसान",
-      applicationProcess: "कृषि विभाग/ऑनलाइन",
-      documents: ["आधार कार्ड", "भूमि दस्तावेज"],
+      description: language === 'english' ? "Soil testing and nutrient information" : "मिट्टी की जांच और पोषक तत्वों की जानकारी",
+      amount: language === 'english' ? "Free" : "निःशुल्क",
+      eligibility: language === 'english' ? "All farmers" : "सभी किसान",
+      applicationProcess: language === 'english' ? "Agriculture Department/Online" : "कृषि विभाग/ऑनलाइन",
+      documents: language === 'english' ? ["Aadhaar Card", "Land Documents"] : ["आधार कार्ड", "भूमि दस्तावेज"],
       status: "Active",
-      beneficiaries: "22 करोड़+",
+      beneficiaries: language === 'english' ? "22 Crore+" : "22 करोड़+",
       category: "advisory",
       lastUpdate: "09 Dec 2024",
       website: "https://soilhealth.dac.gov.in",
@@ -178,13 +179,13 @@ const FarmerSchemesHub = () => {
       id: 6,
       name: "National Agriculture Market (e-NAM)",
       nameHindi: "राष्ट्रीय कृषि बाजार",
-      description: "ऑनलाइन कृषि उत्पाद विपणन प्लेटफॉर्म",
-      amount: "कमीशन फ्री ट्रेडिंग",
-      eligibility: "सभी किसान और व्यापारी",
-      applicationProcess: "ऑनलाइन रजिस्ट्रेशन",
-      documents: ["आधार कार्ड", "बैंक पासबुक", "मोबाइल नंबर"],
+      description: language === 'english' ? "Online agricultural product marketing platform" : "ऑनलाइन कृषि उत्पाद विपणन प्लेटफॉर्म",
+      amount: language === 'english' ? "Commission Free Trading" : "कमीशन फ्री ट्रेडिंग",
+      eligibility: language === 'english' ? "All farmers and traders" : "सभी किसान और व्यापारी",
+      applicationProcess: language === 'english' ? "Online Registration" : "ऑनलाइन रजिस्ट्रेशन",
+      documents: language === 'english' ? ["Aadhaar Card", "Bank Passbook", "Mobile Number"] : ["आधार कार्ड", "बैंक पासबुक", "मोबाइल नंबर"],
       status: "Active",
-      beneficiaries: "1.7 करोड़+",
+      beneficiaries: language === 'english' ? "1.7 Crore+" : "1.7 करोड़+",
       category: "marketing",
       lastUpdate: "08 Dec 2024",
       website: "https://enam.gov.in/web/",
@@ -255,12 +256,36 @@ const FarmerSchemesHub = () => {
             />
             <div>
               <Badge className="mb-2 px-4 py-2 bg-gradient-to-r from-orange-600 to-green-600 text-white text-lg">
-                🇮🇳 भारत सरकार - कृषि मंत्रालय
+                🇮🇳 {language === 'english' ? 'Government of India - Ministry of Agriculture' : 'भारत सरकार - कृषि मंत्रालय'}
               </Badge>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-green-600 bg-clip-text text-transparent">
-                Farmer Schemes Hub
+                {language === 'english' ? 'Farmer Schemes Hub' : 'किसान योजना केंद्र'}
               </h1>
-              <p className="text-gray-600 text-lg mt-2">किसान योजना केंद्र - Daily Updates & Complete Information</p>
+              <p className="text-gray-600 text-lg mt-2">
+                {language === 'english' ? 'Daily Updates & Complete Information' : 'किसान योजना केंद्र - Daily Updates & Complete Information'}
+              </p>
+            </div>
+          </div>
+          
+          {/* Language Toggle */}
+          <div className="flex justify-center mt-4">
+            <div className="inline-flex rounded-lg border-2 border-green-600 p-1 bg-white">
+              <Button
+                variant={language === 'english' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setLanguage('english')}
+                className={language === 'english' ? 'bg-green-600 text-white' : 'text-gray-700'}
+              >
+                English
+              </Button>
+              <Button
+                variant={language === 'hindi' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setLanguage('hindi')}
+                className={language === 'hindi' ? 'bg-green-600 text-white' : 'text-gray-700'}
+              >
+                हिंदी
+              </Button>
             </div>
           </div>
         </div>
@@ -270,15 +295,15 @@ const FarmerSchemesHub = () => {
           <TabsList className="grid w-full grid-cols-3 bg-white shadow-lg rounded-lg">
             <TabsTrigger value="updates" className="flex items-center">
               <Bell className="mr-2 h-4 w-4" />
-              Daily Updates
+              {language === 'english' ? 'Daily Updates' : 'दैनिक अपडेट'}
             </TabsTrigger>
             <TabsTrigger value="schemes" className="flex items-center">
               <FileText className="mr-2 h-4 w-4" />
-              All Schemes
+              {language === 'english' ? 'All Schemes' : 'सभी योजनाएं'}
             </TabsTrigger>
             <TabsTrigger value="apply" className="flex items-center">
               <Target className="mr-2 h-4 w-4" />
-              Quick Apply
+              {language === 'english' ? 'Quick Apply' : 'त्वरित आवेदन'}
             </TabsTrigger>
           </TabsList>
 
@@ -289,7 +314,7 @@ const FarmerSchemesHub = () => {
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center">
                     <Bell className="mr-2 h-6 w-6" />
-                    आज की ताजा खबरें (Today's Updates)
+                    {language === 'english' ? "Today's Latest Updates" : 'आज की ताजा खबरें'}
                   </span>
                   <Badge className="bg-white/20 text-white animate-pulse">
                     LIVE
@@ -353,7 +378,7 @@ const FarmerSchemesHub = () => {
                     <div className="relative">
                       <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        placeholder="योजना खोजें... (Search schemes)"
+                        placeholder={language === 'english' ? "Search schemes..." : "योजना खोजें..."}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 border-2 border-gray-200 focus:border-green-500"
@@ -390,7 +415,7 @@ const FarmerSchemesHub = () => {
                         </div>
                       </div>
                       <Badge className="bg-white/20 text-white">
-                        {scheme.status === 'Active' ? 'सक्रिय' : 'बंद'}
+                        {scheme.status === 'Active' ? (language === 'english' ? 'Active' : 'सक्रिय') : (language === 'english' ? 'Closed' : 'बंद')}
                       </Badge>
                     </CardTitle>
                   </CardHeader>
@@ -399,22 +424,22 @@ const FarmerSchemesHub = () => {
                     
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div className="p-3 bg-green-50 rounded-lg">
-                        <div className="text-sm text-gray-600">राशि/लाभ</div>
+                        <div className="text-sm text-gray-600">{language === 'english' ? 'Amount/Benefit' : 'राशि/लाभ'}</div>
                         <div className="font-bold text-green-600">{scheme.amount}</div>
                       </div>
                       <div className="p-3 bg-blue-50 rounded-lg">
-                        <div className="text-sm text-gray-600">लाभार्थी</div>
+                        <div className="text-sm text-gray-600">{language === 'english' ? 'Beneficiaries' : 'लाभार्थी'}</div>
                         <div className="font-bold text-blue-600">{scheme.beneficiaries}</div>
                       </div>
                     </div>
 
                     <div className="space-y-3 mb-4">
                       <div>
-                        <div className="text-sm font-semibold text-gray-700 mb-1">पात्रता:</div>
+                        <div className="text-sm font-semibold text-gray-700 mb-1">{language === 'english' ? 'Eligibility:' : 'पात्रता:'}</div>
                         <div className="text-sm text-gray-600">{scheme.eligibility}</div>
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-gray-700 mb-1">आवेदन प्रक्रिया:</div>
+                        <div className="text-sm font-semibold text-gray-700 mb-1">{language === 'english' ? 'Application Process:' : 'आवेदन प्रक्रिया:'}</div>
                         <div className="text-sm text-gray-600">{scheme.applicationProcess}</div>
                       </div>
                     </div>

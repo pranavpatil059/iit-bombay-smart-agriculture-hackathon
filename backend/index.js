@@ -82,6 +82,17 @@ if (mongoURI && mongoURI !== 'mongodb://localhost:27017/agriculture') {
 
 // Routes with error handling
 try {
+    if (airoute) app.use("/api/ai", airoute);
+    if (techRoutes) app.use('/api/tech', techRoutes);
+    if (hackathonRoutes) app.use('/api/hackathon', hackathonRoutes);
+    if (wildlifeRoutes) app.use('/api/wildlife', wildlifeRoutes);
+    if (internationalFeaturesRoutes) app.use('/api/international', internationalFeaturesRoutes);
+    if (iotRoutes) {
+        app.use('/api/iot', iotRoutes);
+        console.log('✅ IoT routes loaded successfully');
+    } else {
+        console.log('⚠️ IoT routes not loaded');
+    }
     app.use("/api/ai", airoute);
     app.use('/api/tech', techRoutes);
     app.use('/api/hackathon', hackathonRoutes);
