@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Leaf, Microscope, AlertTriangle, ThumbsUp, Gauge, Calendar, Sprout } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { useLanguage } from '@/contexts/LanguageContext';
 import ImageUploader from '@/components/ImageUploader';
 import { 
   Card,
@@ -31,6 +32,7 @@ interface SeasonalCrop {
 }
 
 const CropHealth = () => {
+  const { t } = useLanguage();
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   
   const handleImageAnalyzed = (result: AnalysisResult) => {
@@ -38,11 +40,11 @@ const CropHealth = () => {
   };
 
   const getHealthStatus = (health: number) => {
-    if (health >= 90) return { label: "Excellent", color: "text-green-600" };
-    if (health >= 75) return { label: "Good", color: "text-green-500" };
-    if (health >= 60) return { label: "Fair", color: "text-yellow-500" };
-    if (health >= 40) return { label: "Poor", color: "text-orange-500" };
-    return { label: "Critical", color: "text-red-500" };
+    if (health >= 90) return { label: t('cropHealth.excellent'), color: "text-green-600" };
+    if (health >= 75) return { label: t('cropHealth.good'), color: "text-green-500" };
+    if (health >= 60) return { label: t('cropHealth.fair'), color: "text-yellow-500" };
+    if (health >= 40) return { label: t('cropHealth.poor'), color: "text-orange-500" };
+    return { label: t('cropHealth.critical'), color: "text-red-500" };
   };
   
   const getHealthColor = (health: number) => {
@@ -54,7 +56,7 @@ const CropHealth = () => {
   };
 
   // Current season in India (March)
-  const currentSeason = "Spring";
+  const currentSeason = t('cropHealth.spring') || "Spring";
 
   // Seasonal crops data for India in Spring
   const seasonalCrops: SeasonalCrop[] = [
@@ -206,11 +208,10 @@ const CropHealth = () => {
         <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-down">
             <h1 className="text-4xl font-semibold mb-4">
-              Crop Health Analysis
+              {t('cropHealth.title')}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Upload images of your crops to get AI-powered health assessments
-              and recommendations
+              {t('cropHealth.subtitle')}
             </p>
           </div>
 
@@ -220,11 +221,10 @@ const CropHealth = () => {
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center text-xl">
                     <Leaf className="h-5 w-5 mr-2 text-primary" />
-                    How It Works
+                    {t('cropHealth.howItWorks')}
                   </CardTitle>
                   <CardDescription>
-                    Our AI system can detect diseases, nutrient deficiencies,
-                    and other health issues
+                    {t('cropHealth.howItWorksDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4">
@@ -233,10 +233,9 @@ const CropHealth = () => {
                       <Microscope className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Visual Analysis</h4>
+                      <h4 className="font-medium mb-1">{t('cropHealth.visualAnalysis')}</h4>
                       <p className="text-sm text-muted-foreground">
-                        Our AI algorithm analyzes visual patterns, colors, and
-                        textures in your crop images.
+                        {t('cropHealth.visualAnalysisDesc')}
                       </p>
                     </div>
                   </div>
@@ -246,10 +245,9 @@ const CropHealth = () => {
                       <Leaf className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Disease Detection</h4>
+                      <h4 className="font-medium mb-1">{t('cropHealth.diseaseDetection')}</h4>
                       <p className="text-sm text-muted-foreground">
-                        Identifies common crop diseases like leaf rust, powdery
-                        mildew, and blight with high accuracy.
+                        {t('cropHealth.diseaseDetectionDesc')}
                       </p>
                     </div>
                   </div>
@@ -259,10 +257,9 @@ const CropHealth = () => {
                       <Gauge className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Health Assessment</h4>
+                      <h4 className="font-medium mb-1">{t('cropHealth.healthAssessment')}</h4>
                       <p className="text-sm text-muted-foreground">
-                        Provides an overall health score and identifies specific
-                        areas of concern.
+                        {t('cropHealth.healthAssessmentDesc')}
                       </p>
                     </div>
                   </div>
@@ -273,11 +270,10 @@ const CropHealth = () => {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">
-                        Personalized Recommendations
+                        {t('cropHealth.personalizedRecommendations')}
                       </h4>
                       <p className="text-sm text-muted-foreground">
-                        Offers tailored suggestions for treatment,
-                        fertilization, and care based on the analysis.
+                        {t('cropHealth.personalizedRecommendationsDesc')}
                       </p>
                     </div>
                   </div>
@@ -302,24 +298,24 @@ const CropHealth = () => {
                   </div>
                   <div className="ml-3">
                     <h3 className="font-medium text-base mb-2">
-                      For Best Results
+                      {t('cropHealth.forBestResults')}
                     </h3>
                     <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-muted-foreground">
                       <li className="flex items-start">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-2"></span>
-                        <span>Take clear, well-lit photos</span>
+                        <span>{t('cropHealth.takeClearPhotos')}</span>
                       </li>
                       <li className="flex items-start">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-2"></span>
-                        <span>Avoid shadows and blur</span>
+                        <span>{t('cropHealth.avoidShadows')}</span>
                       </li>
                       <li className="flex items-start">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-2"></span>
-                        <span>Include healthy & unhealthy parts</span>
+                        <span>{t('cropHealth.includeHealthyParts')}</span>
                       </li>
                       <li className="flex items-start">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-2"></span>
-                        <span>Provide multiple angles</span>
+                        <span>{t('cropHealth.provideMultipleAngles')}</span>
                       </li>
                     </ul>
                   </div>
@@ -333,7 +329,7 @@ const CropHealth = () => {
                   ></div>
                   <CardHeader className="pb-3">
                     <CardTitle className="flex items-center justify-between">
-                      <span>Analysis Results</span>
+                      <span>{t('cropHealth.analysisResults')}</span>
                       <span
                         className={`text-sm ${
                           getHealthStatus(analysisResult.health).color
@@ -343,14 +339,14 @@ const CropHealth = () => {
                       </span>
                     </CardTitle>
                     <CardDescription>
-                      Confidence: {analysisResult.confidence.toFixed(1)}%
+                      {t('cropHealth.confidence')}: {analysisResult.confidence.toFixed(1)}%
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
                       <div className="flex justify-between mb-1">
                         <span className="text-sm font-medium">
-                          Health Score
+                          {t('cropHealth.healthScore')}
                         </span>
                         <span className="text-sm">
                           {analysisResult.health.toFixed(1)}%
@@ -364,14 +360,14 @@ const CropHealth = () => {
                         <div className="flex items-center text-amber-700">
                           <AlertTriangle className="h-4 w-4 mr-2" />
                           <span className="font-medium">
-                            Detected Issue: {analysisResult.disease}
+                            {t('cropHealth.detectedIssue')}: {analysisResult.disease}
                           </span>
                         </div>
                       </div>
                     )}
 
                     <div>
-                      <h4 className="font-medium mb-2">Recommendations</h4>
+                      <h4 className="font-medium mb-2">{t('cropHealth.recommendations')}</h4>
                       <ul className="space-y-2">
                         {analysisResult.recommendations.map((rec, index) => (
                           <li key={index} className="flex items-start text-sm">
@@ -393,11 +389,10 @@ const CropHealth = () => {
               <CardHeader>
                 <CardTitle className="flex items-center text-2xl">
                   <Calendar className="h-6 w-6 mr-2 text-primary" />
-                  Seasonal Crops in India ({currentSeason})
+                  {t('cropHealth.seasonalCrops', { season: currentSeason })}
                 </CardTitle>
                 <CardDescription>
-                  Recommended crops for the current season, common diseases, and
-                  treatment options
+                  {t('cropHealth.seasonalCropsDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="pb-6">
@@ -414,7 +409,7 @@ const CropHealth = () => {
                         <div className="grid md:grid-cols-2 gap-6">
                           <div>
                             <h4 className="font-medium text-sm uppercase tracking-wider text-gray-800 dark:text-white mb-3">
-                              Common Diseases
+                              {t('cropHealth.commonDiseases')}
                             </h4>
                             <div className="space-y-4">
                               {crop.diseases.map((disease, dIndex) => (
@@ -427,13 +422,13 @@ const CropHealth = () => {
                                   </h5>
                                   <p className="text-sm text-gray-800 dark:text-white mb-2">
                                     <span className="font-medium">
-                                      Symptoms:
+                                      {t('cropHealth.symptoms')}
                                     </span>{" "}
                                     {disease.symptoms}
                                   </p>
                                   <div>
                                     <h6 className="text-sm font-medium text-purple-700 dark:text-purple-400 mb-1">
-                                      Remedies:
+                                      {t('cropHealth.remedies')}
                                     </h6>
                                     <ul className="space-y-1">
                                       {disease.remedies.map(
@@ -456,7 +451,7 @@ const CropHealth = () => {
 
                           <div>
                             <h4 className="font-medium text-sm uppercase tracking-wider text-gray-800 dark:text-white mb-3">
-                              Recommended Fertilizers
+                              {t('cropHealth.recommendedFertilizers')}
                             </h4>
                             <div className="p-3 rounded-lg bg-teal-50 dark:bg-teal-900 border border-teal-100 dark:border-teal-700">
                               <ul className="space-y-2">
@@ -480,12 +475,12 @@ const CropHealth = () => {
               </CardContent>
               <CardFooter className="pt-2 pb-4 px-6 bg-muted/20 border-t flex justify-between items-center">
                 <p className="text-sm text-muted-foreground">
-                  Data updated for {currentSeason} growing season in India
+                  {t('cropHealth.dataUpdated', { season: currentSeason })}
                 </p>
                 <div className="flex items-center space-x-2">
                   <AlertTriangle className="h-4 w-4 text-amber-500" />
                   <p className="text-xs text-muted-foreground">
-                    Always consult with local agricultural experts
+                    {t('cropHealth.consultExperts')}
                   </p>
                 </div>
               </CardFooter>
