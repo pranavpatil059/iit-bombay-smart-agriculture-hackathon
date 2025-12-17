@@ -97,14 +97,15 @@ app.use('*', (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 10001;
+const PORT = process.env.PORT || 3000;
 
-// For Vercel deployment
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running on http://localhost:${PORT}`);
-    });
-}
+// Start server (works for both local and production)
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🌐 Access the API at: http://localhost:${PORT}`);
+    console.log(`✅ Ready to accept requests!`);
+});
 
 // Export for Vercel
 module.exports = app;
