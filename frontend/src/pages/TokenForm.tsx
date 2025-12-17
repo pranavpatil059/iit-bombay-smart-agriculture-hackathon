@@ -13,6 +13,8 @@ import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { MapPin, Smartphone, User, CreditCard, Loader2, CheckCircle, XCircle, Navigation } from "lucide-react";
 import { toast } from "sonner";
+import EnhancedParticleBackground from "@/components/EnhancedParticleBackground";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Form validation schema
 const tokenFormSchema = z.object({
@@ -35,6 +37,7 @@ interface LocationData {
 }
 
 const TokenForm: React.FC = () => {
+  const { t } = useLanguage();
   const [phone, setPhone] = useState("");
   const [statusData, setStatusData] = useState<{ status: string; allottedDate: string } | null>(null);
   const [message, setMessage] = useState("");
@@ -138,15 +141,19 @@ const TokenForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-indigo-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen relative py-8 px-4">
+      {/* Enhanced Animated Background */}
+      <EnhancedParticleBackground theme="agriculture" className="opacity-85" />
+      
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-gray-900/70 to-black/80"></div>
+      <div className="max-w-4xl mx-auto space-y-8 relative z-10">
         {/* Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-gray-900 flex items-center justify-center gap-3">
-            🌱 <span>Token Registration System</span>
+          <h1 className="text-4xl font-bold text-white flex items-center justify-center gap-3">
+            🌱 <span>{t('tokenForm.title')}</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Register for agricultural services with enhanced security and location verification
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+            {t('tokenForm.subtitle')}
           </p>
         </div>
 
@@ -157,10 +164,10 @@ const TokenForm: React.FC = () => {
               <CardHeader className="space-y-2">
                 <CardTitle className="text-2xl flex items-center gap-2">
                   <User className="h-6 w-6 text-green-600" />
-                  Farmer Registration
+                  {t('farmerForm.registerAccount')}
                 </CardTitle>
                 <CardDescription>
-                  Fill in your details to register for agricultural token services
+                  {t('tokenForm.subtitle')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -169,16 +176,16 @@ const TokenForm: React.FC = () => {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                       <User className="h-5 w-5" />
-                      Personal Information
+                      {t('tokenForm.personalInfo')}
                     </h3>
                     
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
+                        <Label htmlFor="name">{t('farmerForm.name')} *</Label>
                         <Input
                           id="name"
                           {...register("name")}
-                          placeholder="Enter your full name"
+                          placeholder={t('farmerForm.name')}
                           className="h-12"
                         />
                         {errors.name && (
@@ -187,11 +194,11 @@ const TokenForm: React.FC = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="contact">Mobile Number *</Label>
+                        <Label htmlFor="contact">{t('farmerForm.phone')} *</Label>
                         <Input
                           id="contact"
                           {...register("contact")}
-                          placeholder="10-digit mobile number"
+                          placeholder={t('farmerForm.phone')}
                           className="h-12"
                         />
                         {errors.contact && (
@@ -204,12 +211,12 @@ const TokenForm: React.FC = () => {
                       <div className="space-y-2">
                         <Label htmlFor="aadharNumber" className="flex items-center gap-2">
                           <CreditCard className="h-4 w-4" />
-                          Aadhar Number *
+                          {t('tokenForm.aadharNumber')} *
                         </Label>
                         <Input
                           id="aadharNumber"
                           {...register("aadharNumber")}
-                          placeholder="12-digit Aadhar number"
+                          placeholder={t('tokenForm.aadharNumber')}
                           maxLength={12}
                           className="h-12"
                         />
@@ -219,12 +226,12 @@ const TokenForm: React.FC = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
+                        <Label htmlFor="email">{t('farmerForm.email')} *</Label>
                         <Input
                           id="email"
                           type="email"
                           {...register("email")}
-                          placeholder="your.email@example.com"
+                          placeholder={t('farmerForm.email')}
                           className="h-12"
                         />
                         {errors.email && (
@@ -238,15 +245,15 @@ const TokenForm: React.FC = () => {
 
                   {/* Farm Information */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-gray-900">🚜 Farm Information</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">🚜 {t('tokenForm.farmingInfo')}</h3>
                     
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="landArea">Land Area (in acres) *</Label>
+                        <Label htmlFor="landArea">{t('farmerForm.landArea')} *</Label>
                         <Input
                           id="landArea"
                           {...register("landArea")}
-                          placeholder="e.g., 5.5"
+                          placeholder={t('farmerForm.landArea')}
                           className="h-12"
                         />
                         {errors.landArea && (
@@ -255,11 +262,11 @@ const TokenForm: React.FC = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="crop">Primary Crop (Optional)</Label>
+                        <Label htmlFor="crop">{t('tokenForm.crop')}</Label>
                         <Input
                           id="crop"
                           {...register("crop")}
-                          placeholder="e.g., Rice, Wheat, Cotton"
+                          placeholder={t('farmerForm.selectedCrop')}
                           className="h-12"
                         />
                       </div>
@@ -273,7 +280,7 @@ const TokenForm: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <MapPin className="h-5 w-5" />
-                        Location Information
+                        {t('tokenForm.addressInfo')}
                       </h3>
                       <Button
                         type="button"
@@ -287,7 +294,7 @@ const TokenForm: React.FC = () => {
                         ) : (
                           <Navigation className="h-4 w-4" />
                         )}
-                        {isLoadingLocation ? "Getting Location..." : "Get Current Location"}
+                        {isLoadingLocation ? t('common.loading') : t('tokenForm.getLocation')}
                       </Button>
                     </div>
 
@@ -302,11 +309,11 @@ const TokenForm: React.FC = () => {
 
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="address">Complete Address *</Label>
+                        <Label htmlFor="address">{t('tokenForm.address')} *</Label>
                         <Textarea
                           id="address"
                           {...register("address")}
-                          placeholder="Enter your complete farm address"
+                          placeholder={t('tokenForm.address')}
                           className="min-h-[80px]"
                         />
                         {errors.address && (
@@ -315,11 +322,11 @@ const TokenForm: React.FC = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="pincode">Pincode *</Label>
+                        <Label htmlFor="pincode">{t('tokenForm.pincode')} *</Label>
                         <Input
                           id="pincode"
                           {...register("pincode")}
-                          placeholder="6-digit pincode"
+                          placeholder={t('tokenForm.pincode')}
                           maxLength={6}
                           className="h-12"
                         />
@@ -342,7 +349,7 @@ const TokenForm: React.FC = () => {
                       </>
                     ) : (
                       <>
-                        🚜 Register Token
+                        🚜 {t('tokenForm.registerToken')}
                       </>
                     )}
                   </Button>
@@ -370,25 +377,25 @@ const TokenForm: React.FC = () => {
               <CardHeader>
                 <CardTitle className="text-xl flex items-center gap-2">
                   <Smartphone className="h-5 w-5 text-blue-600" />
-                  Check Status
+                  {t('tokenForm.checkStatus')}
                 </CardTitle>
                 <CardDescription>
-                  Enter your mobile number to check registration status
+                  {t('farmerForm.enterPhone')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="statusPhone">Mobile Number</Label>
+                  <Label htmlFor="statusPhone">{t('farmerForm.phone')}</Label>
                   <Input
                     id="statusPhone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Enter mobile number"
+                    placeholder={t('farmerForm.phone')}
                     className="h-12"
                   />
                 </div>
                 <Button onClick={checkStatus} className="w-full h-12">
-                  🔍 Check Status
+                  🔍 {t('tokenForm.checkStatus')}
                 </Button>
 
                 {statusData && (

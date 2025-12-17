@@ -1,0 +1,38 @@
+{
+  "common": {
+    "welcome": "येवकार",
+    "loading": "लोड जाता...",
+    "error": "चूक",
+    "success": "यश",
+    "cancel": "रद्द करा",
+    "save": "जतन करा",
+    "edit": "संपादन करा",
+    "delete": "काडा",
+    "search": "सोदा",
+    "filter": "फिल्टर",
+    "apply": "अर्ज करा",
+    "submit": "दिया",
+    "back": "परत",
+    "next": "फुडलें",
+    "previous": "आदलें",
+    "close": "बंद करा",
+    "open": "उगडा",
+    "yes": "हय",
+    "no": "ना"
+  },
+  "navigation": {
+    "home": "घर",
+    "farmLoans": "शेती कर्ज",
+    "priceEstimation": "भाव अंदाज",
+    "governmentSchemes": "सरकारी योजना",
+    "cropHealth": "पीक आरोग्य",
+    "directMarket": "थेट बाजार",
+    "weather": "हवामान",
+    "profile": "प्रोफाइल",
+    "settings": "सेटिंग",
+    "logout": "लॉग आउट"
+  },
+  "selectLanguage": "भास निवडा",
+  "farmerFriendly": "शेतकरी मित्र इंटरफेस",
+  "changeLanguage": "भास बदला"
+}

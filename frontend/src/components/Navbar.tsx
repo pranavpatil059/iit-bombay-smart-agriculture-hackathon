@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 import { Menu, X, Cloud } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useLanguage } from '@/contexts/LanguageContext';
 import image from "./logo.png";
 
 const Navbar = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
@@ -34,22 +36,24 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Token", path: "/tokenform" },
-    { name: "Price Estimation", path: "/price-estimation" },
-    { name: "Government Schemes", path: "/government-schemes" },
-    { name: "Crop Health", path: "/crop-health" },
-    { name: "Direct Market", path: "/direct-market" },
-    { name: "Land", path: "/landselling" },
-    { name: "Prices", path: "/prices" },
+    { name: t('navigation.home'), path: "/" },
+    { name: t('navigation.token'), path: "/tokenform" },
+    { name: t('navigation.priceEstimation'), path: "/price-estimation" },
+    { name: t('navigation.governmentSchemes'), path: "/government-schemes" },
+    { name: t('navigation.cropHealth'), path: "/crop-health" },
+    { name: t('navigation.directMarket'), path: "/direct-market" },
+    { name: t('navigation.land'), path: "/landselling" },
+    { name: t('navigation.prices'), path: "/prices" },
     {
-      name: "Weather",
+      name: t('navigation.weather'),
       path: "/wether",
       icon: <Cloud className="w-4 h-4 mr-1" />,
     },
     { name: "Soil Monitoring", path: "/iot-monitoring" },
     { name: "Login", path: "/farmerform" },
     { name: "WorkPlace", path: "/workplace" },
+    { name: t('navigation.login'), path: "/farmerform" },
+    { name: t('navigation.workplace'), path: "/workplace" },
   ];
 
   const isActive = (path) => {
@@ -71,7 +75,7 @@ const Navbar = () => {
                 />
               </span>
               <span className="font-semibold text-sm md:text-base">
-                Project Kisan
+                {t('navigation.projectKisan')}
               </span>
             </Link>
           </div>

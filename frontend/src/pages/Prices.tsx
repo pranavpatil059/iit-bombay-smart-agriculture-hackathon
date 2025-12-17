@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Search, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import { useLanguage } from '@/contexts/LanguageContext';
 import cropData from "./data.js"; // Static crop data
 
 const TrendIcon = ({ trend }) => {
@@ -40,7 +41,7 @@ const PriceCard = ({ crop }) => (
           ₹{crop.price}
         </span>
         <span className="text-gray-600 dark:text-gray-400 text-sm">
-          per {crop.unit}
+          {t('prices.perUnit')?.replace('{unit}', crop.unit)}
         </span>
       </div>
     </div>
@@ -48,11 +49,12 @@ const PriceCard = ({ crop }) => (
 );
 
 export default function Prices() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedState, setSelectedState] = useState("All States");
 
   const uniqueStates = [
-    "All States",
+    t('prices.allStates'),
     ...new Set(cropData.map((crop) => crop.state)),
   ];
 
@@ -62,7 +64,7 @@ export default function Prices() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
       const matchesState =
-        selectedState === "All States" || crop.state === selectedState;
+        selectedState === t('prices.allStates') || crop.state === selectedState;
       return matchesSearch && matchesState;
     });
   }, [searchTerm, selectedState]);
@@ -84,11 +86,10 @@ export default function Prices() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-            Crop Prices
+            {t('prices.title')}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Get the latest prices of various crops and commodities across
-            different states. Prices are updated daily and show market trends.
+            {t('prices.subtitle')}
           </p>
 
           {/* Search and Filter Section */}
@@ -99,7 +100,7 @@ export default function Prices() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
                   <input
                     type="text"
-                    placeholder="Search for crops (e.g., wheat, rice, cotton...)"
+                    placeholder={t('prices.searchPlaceholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -112,8 +113,8 @@ export default function Prices() {
                   onChange={(e) => setSelectedState(e.target.value)}
                   className="w-full py-3 px-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 >
-                  {uniqueStates.map((state) => (
-                    <option key={state} value={state}>
+                  {uniqueStates.map((state, index) => (
+                    <option key={index} value={state}>
                       {state}
                     </option>
                   ))}
@@ -125,10 +126,11 @@ export default function Prices() {
           {/* Results Summary */}
           <div className="mb-6">
             <p className="text-gray-600 dark:text-gray-400">
-              Showing {filteredCrops.length} price
-              {filteredCrops.length !== 1 ? "s" : ""}
-              {searchTerm && ` for "${searchTerm}"`}
-              {selectedState !== "All States" && ` in ${selectedState}`}
+              {t('prices.showingResults')
+                ?.replace('{count}', filteredCrops.length.toString())
+                ?.replace('{plural}', filteredCrops.length !== 1 ? "s" : "")}
+              {searchTerm && ` ${t('prices.forSearch')?.replace('{search}', searchTerm)}`}
+              {selectedState !== t('prices.allStates') && ` ${t('prices.inState')?.replace('{state}', selectedState)}`}
             </p>
           </div>
         </div>
@@ -152,10 +154,10 @@ export default function Prices() {
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg">
-              No crops found matching your search criteria.
+              {t('prices.noCropsFound')}
             </div>
             <p className="text-gray-400 dark:text-gray-500 mt-2">
-              Try adjusting your search terms or selecting a different state.
+              {t('prices.adjustSearch')}
             </p>
           </div>
         )}
@@ -163,22 +165,21 @@ export default function Prices() {
         {/* Market Info */}
         <div className="mt-12 bg-blue-50 dark:bg-gray-800 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-            Market Information
+            {t('prices.marketInformation')}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div>
-              <strong>Price Updates:</strong> Daily at 6:00 AM IST
+              <strong>{t('prices.priceUpdates')}:</strong> {t('prices.priceUpdatesTime')}
             </div>
             <div>
-              <strong>Currency:</strong> Indian Rupees (₹)
+              <strong>{t('prices.currency')}:</strong> {t('prices.currencyValue')}
             </div>
             <div>
-              <strong>Unit:</strong> Per Quintal (100 kg)
+              <strong>{t('prices.unit')}:</strong> {t('prices.unitValue')}
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-500 dark:text-gray-500">
-            * Prices are indicative and may vary based on quality, market
-            conditions, and local factors.
+            {t('prices.disclaimer')}
           </p>
         </div>
       </div>

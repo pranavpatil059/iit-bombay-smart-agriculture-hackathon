@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Cloud, 
   Sun, 
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react';
 
 const Advanced3DWeather = () => {
+  const { t } = useLanguage();
   const [selectedState, setSelectedState] = useState("Delhi");
   const [selectedDay, setSelectedDay] = useState(0);
   const [weatherData, setWeatherData] = useState({});
@@ -356,13 +358,13 @@ const Advanced3DWeather = () => {
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-green-600 text-white">
             <Satellite className="h-4 w-4 mr-2" />
-            All India Weather Intelligence
+            {t('weather.title')}
           </Badge>
           <h2 className="text-5xl font-bold text-gray-800 mb-6">
-            🌍 Live Weather Analytics for 30 Indian States
+            🌍 {t('weather.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Real-time satellite data + AI predictions + 3D visualization updating every second
+            {t('weather.subtitle')}
           </p>
         </div>
 
@@ -372,14 +374,14 @@ const Advanced3DWeather = () => {
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center">
                 <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse mr-3"></div>
-                <span>🔴 LIVE Weather Data - {selectedState}</span>
+                <span>🔴 {t('weather.liveWeatherData')} - {selectedState}</span>
               </div>
               <Badge className="bg-red-600 text-white animate-pulse">
-                UPDATING EVERY SECOND
+                {t('weather.updatingEverySecond')}
               </Badge>
             </CardTitle>
             <div className="text-sm text-gray-600">
-              Last Update: {liveData.timestamp.toLocaleTimeString()}
+              {t('weather.lastUpdate')}: {liveData.timestamp.toLocaleTimeString()}
             </div>
           </CardHeader>
           <CardContent>
@@ -390,7 +392,7 @@ const Advanced3DWeather = () => {
                 <div className="text-3xl font-bold text-red-600 mb-1">
                   {liveData.temperature}°C
                 </div>
-                <div className="text-xs text-gray-600 mb-2">Temperature</div>
+                <div className="text-xs text-gray-600 mb-2">{t('weather.temperature')}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-red-400 to-orange-500 h-2 rounded-full transition-all duration-1000"
@@ -408,7 +410,7 @@ const Advanced3DWeather = () => {
                 <div className="text-3xl font-bold text-blue-600 mb-1">
                   {liveData.humidity}%
                 </div>
-                <div className="text-xs text-gray-600 mb-2">Humidity</div>
+                <div className="text-xs text-gray-600 mb-2">{t('weather.humidity')}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-blue-400 to-cyan-500 h-2 rounded-full transition-all duration-1000"
@@ -426,7 +428,7 @@ const Advanced3DWeather = () => {
                 <div className="text-3xl font-bold text-cyan-600 mb-1">
                   {liveData.rainfall}mm
                 </div>
-                <div className="text-xs text-gray-600 mb-2">Rainfall</div>
+                <div className="text-xs text-gray-600 mb-2">{t('weather.rainfall')}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-1000"
@@ -444,7 +446,7 @@ const Advanced3DWeather = () => {
                 <div className="text-3xl font-bold text-green-600 mb-1">
                   {liveData.moisture}%
                 </div>
-                <div className="text-xs text-gray-600 mb-2">Soil Moisture</div>
+                <div className="text-xs text-gray-600 mb-2">{t('weather.soilMoisture')}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full transition-all duration-1000"
@@ -462,7 +464,7 @@ const Advanced3DWeather = () => {
                 <div className="text-2xl font-bold text-purple-600 mb-1">
                   {liveData.condition}
                 </div>
-                <div className="text-xs text-gray-600 mb-2">AI Assessment</div>
+                <div className="text-xs text-gray-600 mb-2">{t('weather.aiAssessment')}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className={`h-2 rounded-full transition-all duration-1000 ${
