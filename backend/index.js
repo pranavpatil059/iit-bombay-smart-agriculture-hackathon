@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Load routes with error handling
-let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes;
+let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes, transportationRoutes;
 
 try {
     airoute = require("./routes/airoutes");
@@ -15,6 +15,7 @@ try {
     hackathonRoutes = require("./routes/hackathonRoutes");
     internationalFeaturesRoutes = require("./routes/internationalFeaturesRoutes");
     farmLoansRoutes = require("./routes/farmLoans");
+    transportationRoutes = require("./routes/transportationRoutes");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -63,7 +64,12 @@ app.get('/', (req, res) => {
             '/api/hackathon - Hackathon Information',
             '/api/farm-loans/banks - Agricultural Bank Directory',
             '/api/farm-loans/calculate-emi - Loan EMI Calculator',
-            '/api/farm-loans/schemes - Government Loan Schemes'
+            '/api/farm-loans/schemes - Government Loan Schemes',
+            '/api/transportation/transporters - Find Available Transporters',
+            '/api/transportation/requests - Transport Request Management',
+            '/api/transportation/live-tracking/:tripId - Live GPS Tracking',
+            '/api/transportation/book/:transporterId - Book Transporter',
+            '/api/transportation/estimate-price - Price Estimation'
         ]
     });
 });
@@ -88,6 +94,7 @@ try {
     app.use('/api/wildlife', wildlifeRoutes);
     app.use('/api/international', internationalFeaturesRoutes);
     app.use('/api/farm-loans', farmLoansRoutes);
+    app.use('/api/transportation', transportationRoutes);
 } catch (error) {
     console.error('Route loading error:', error);
 }

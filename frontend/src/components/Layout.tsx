@@ -29,10 +29,7 @@ const Layout = ({ children }: LayoutProps) => {
       
       <Navbar />
       
-      {/* Floating Language Selector */}
-      <div className="fixed top-20 right-4 z-50">
-        <LanguageSelector />
-      </div>
+
       
       <main className="flex-1 page-transition relative z-10">
         {children}

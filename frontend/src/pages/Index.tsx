@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Layout from '@/components/Layout';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+
 const Index = () => {
   const { toast } = useToast();
   const { t } = useLanguage();

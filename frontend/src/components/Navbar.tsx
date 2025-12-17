@@ -5,6 +5,7 @@ import { Menu, X, Cloud } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 import image from "./logo.png";
 
 const Navbar = () => {
@@ -44,6 +45,8 @@ const Navbar = () => {
     { name: t('navigation.directMarket'), path: "/direct-market" },
     { name: t('navigation.land'), path: "/landselling" },
     { name: t('navigation.prices'), path: "/prices" },
+    { name: "🚚 Transportation", path: "/transportation" },
+    { name: "📍 Live Tracking", path: "/live-tracking" },
     {
       name: t('navigation.weather'),
       path: "/wether",
@@ -98,8 +101,11 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Toggle & Theme Switch */}
-          <div className="flex items-center space-x-1">
+          {/* Language Selector, Theme Toggle & Mobile Menu */}
+          <div className="flex items-center space-x-2">
+            <div className="hidden md:block">
+              <LanguageSelector />
+            </div>
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -118,6 +124,11 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden py-2 px-2 bg-background border-b border-border/40 animate-in fade-in slide-in-from-top-5 duration-300 max-h-[70vh] overflow-y-auto">
           <div className="flex flex-col space-y-1">
+            {/* Language Selector for Mobile */}
+            <div className="px-4 py-2 border-b border-border/20 mb-2">
+              <LanguageSelector />
+            </div>
+            
             {navLinks.map((link) => (
               <Link
                 key={link.path}

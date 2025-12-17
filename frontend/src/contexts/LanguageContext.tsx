@@ -69,7 +69,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   const loadTranslations = async (lang: string) => {
     try {
+      console.log('Loading translations for:', lang);
       const translationModule = await import(`../translations/${lang}.json`);
+      console.log('Loaded translations:', translationModule.default);
       setTranslations(translationModule.default);
     } catch (error) {
       console.warn(`Failed to load translations for ${lang}, falling back to English`);
@@ -81,12 +83,16 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   };
 
   const setLanguage = (lang: string) => {
+    console.log('Setting language to:', lang);
     setCurrentLanguage(lang);
     localStorage.setItem('selectedLanguage', lang);
     
     // Update document direction for RTL languages
     document.documentElement.dir = rtlLanguages.includes(lang) ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
+    
+    // Force reload translations immediately
+    loadTranslations(lang);
   };
 
   const t = (key: string): string => {
