@@ -1,0 +1,38 @@
+{
+  "common": {
+    "welcome": "स्वागत बा",
+    "loading": "लोड हो रहल बा...",
+    "error": "गलती",
+    "success": "सफलता",
+    "cancel": "रद्द करीं",
+    "save": "सेव करीं",
+    "edit": "संपादित करीं",
+    "delete": "हटाईं",
+    "search": "खोजीं",
+    "filter": "फिल्टर",
+    "apply": "आवेदन करीं",
+    "submit": "जमा करीं",
+    "back": "वापस",
+    "next": "अगला",
+    "previous": "पिछला",
+    "close": "बंद करीं",
+    "open": "खोलीं",
+    "yes": "हाँ",
+    "no": "ना"
+  },
+  "navigation": {
+    "home": "घर",
+    "farmLoans": "खेती लोन",
+    "priceEstimation": "दाम अनुमान",
+    "governmentSchemes": "सरकारी योजना",
+    "cropHealth": "फसल स्वास्थ्य",
+    "directMarket": "सीधा बाजार",
+    "weather": "मौसम",
+    "profile": "प्रोफाइल",
+    "settings": "सेटिंग",
+    "logout": "लॉग आउट"
+  },
+  "selectLanguage": "भाषा चुनीं",
+  "farmerFriendly": "किसान मित्र इंटरफेस",
+  "changeLanguage": "भाषा बदलीं"
+}

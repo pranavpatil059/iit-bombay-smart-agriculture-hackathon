@@ -1,0 +1,38 @@
+{
+  "common": {
+    "welcome": "स्वागतम्",
+    "loading": "लोड् भवति...",
+    "error": "त्रुटिः",
+    "success": "सफलता",
+    "cancel": "निरस्तं करोतु",
+    "save": "रक्षतु",
+    "edit": "सम्पादयतु",
+    "delete": "नाशयतु",
+    "search": "अन्वेषयतु",
+    "filter": "छन्दकम्",
+    "apply": "आवेदयतु",
+    "submit": "समर्पयतु",
+    "back": "पश्चात्",
+    "next": "अग्रे",
+    "previous": "पूर्वम्",
+    "close": "बन्धयतु",
+    "open": "उद्घाटयतु",
+    "yes": "आम्",
+    "no": "न"
+  },
+  "navigation": {
+    "home": "गृहम्",
+    "farmLoans": "कृषि ऋणम्",
+    "priceEstimation": "मूल्य अनुमानम्",
+    "governmentSchemes": "सरकारी योजनाः",
+    "cropHealth": "शस्य स्वास्थ्यम्",
+    "directMarket": "प्रत्यक्ष विपणिः",
+    "weather": "वातावरणम्",
+    "profile": "परिचयः",
+    "settings": "व्यवस्थाः",
+    "logout": "निर्गमः"
+  },
+  "selectLanguage": "भाषां चिनोतु",
+  "farmerFriendly": "कृषक मित्र अन्तरापृष्ठम्",
+  "changeLanguage": "भाषां परिवर्तयतु"
+}

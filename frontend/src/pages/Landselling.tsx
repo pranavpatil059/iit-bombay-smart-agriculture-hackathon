@@ -7,8 +7,10 @@ import MapView from "@/components/landselling/MapView";
 import AddListing from "@/components/landselling/AddListing";
 import { LandListing } from "@/types/landselling";
 import { saveListings, getListings } from "@/services/landListingService";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Landselling() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("list");
   const [listings, setListings] = useState<LandListing[]>([]);
   const { toast } = useToast();
@@ -28,8 +30,8 @@ export default function Landselling() {
         setListings(data);
   
         toast({
-          title: "Listings loaded",
-          description: `Loaded ${data.length} land listings from the database.`,
+          title: t('landSelling.listingsLoaded'),
+          description: t('landSelling.listingsLoadedDesc').replace('{count}', data.length.toString()),
         });
       } catch (error) {
         console.error("Error fetching listings, using demo data:", error);
@@ -60,8 +62,8 @@ export default function Landselling() {
         
         setListings(demoData);
         toast({
-          title: "Demo Data Loaded",
-          description: `Showing ${demoData.length} sample land listings for demonstration.`,
+          title: t('landSelling.demoDataLoaded'),
+          description: t('landSelling.demoDataDesc').replace('{count}', demoData.length.toString()),
         });
       }
     };
@@ -76,7 +78,7 @@ export default function Landselling() {
   };
 
   const handleContactSeller = (listing) => {
-    alert(`Contacting seller for ${listing.title}`);
+    alert(t('landSelling.contactingSellerFor').replace('{title}', listing.title));
     // You can integrate an email feature, open a chat, or navigate to a contact page
   };
   
@@ -89,8 +91,8 @@ export default function Landselling() {
       newListingData.area <= 0
     ) {
       toast({
-        title: "Invalid listing",
-        description: "Please fill all required fields with valid values.",
+        title: t('landSelling.invalidListing'),
+        description: t('landSelling.invalidListingDesc'),
         variant: "destructive",
       });
       return;
@@ -108,9 +110,8 @@ export default function Landselling() {
     saveListings(updatedListings);
 
     toast({
-      title: "Listing added",
-      description:
-        "Your land listing has been added successfully and saved to storage.",
+      title: t('landSelling.listingAdded'),
+      description: t('landSelling.listingAddedDesc'),
     });
 
     // Switch to map view
@@ -141,7 +142,7 @@ export default function Landselling() {
       <Navbar />
       <div className="container mx-auto px-4 py-20">
         <h1 className="text-3xl font-bold mb-6 text-center">
-          Agricultural Land Marketplace
+          {t('landSelling.title')}
         </h1>
 
         <Tabs
@@ -150,9 +151,9 @@ export default function Landselling() {
           className="w-full"
         >
           <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="map">Map View</TabsTrigger>
-            <TabsTrigger value="add">Add Listing</TabsTrigger>
-            <TabsTrigger value="list">View Listings</TabsTrigger>
+            <TabsTrigger value="map">{t('landSelling.mapView')}</TabsTrigger>
+            <TabsTrigger value="add">{t('landSelling.addListing')}</TabsTrigger>
+            <TabsTrigger value="list">{t('landSelling.viewListings')}</TabsTrigger>
           </TabsList>
 
           <TabsContent
@@ -181,7 +182,7 @@ export default function Landselling() {
               <input
                 type="number"
                 name="price"
-                placeholder="Max Price"
+                placeholder={t('landSelling.maxPrice')}
                 value={filters.price}
                 onChange={handleFilterChange}
                 className="p-2 border rounded w-full sm:w-auto"
@@ -189,7 +190,7 @@ export default function Landselling() {
               <input
                 type="number"
                 name="area"
-                placeholder="Min Area (acres)"
+                placeholder={t('landSelling.minArea')}
                 value={filters.area}
                 onChange={handleFilterChange}
                 className="p-2 border rounded w-full sm:w-auto"
@@ -197,7 +198,7 @@ export default function Landselling() {
               <input
                 type="text"
                 name="location"
-                placeholder="Location"
+                placeholder={t('common.location')}
                 value={filters.location}
                 onChange={handleFilterChange}
                 className="p-2 border rounded w-full sm:w-auto"
@@ -208,12 +209,12 @@ export default function Landselling() {
               <table className="min-w-full border-collapse border  border-gray-300">
                 <thead>
                   <tr className="">
-                    <th className="p-2 border">Title</th>
-                    <th className="p-2 border">Price</th>
-                    <th className="p-2 border">Area</th>
-                    <th className="p-2 border">Location</th>
-                    <th className="p-2 border">Created At</th>
-                    <th className="p-2 border">Contact</th>
+                    <th className="p-2 border">{t('landSelling.listingTitle')}</th>
+                    <th className="p-2 border">{t('landSelling.price')}</th>
+                    <th className="p-2 border">{t('landSelling.area')}</th>
+                    <th className="p-2 border">{t('directMarket.location')}</th>
+                    <th className="p-2 border">{t('landSelling.createdAt')}</th>
+                    <th className="p-2 border">{t('landSelling.contact')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,7 +222,7 @@ export default function Landselling() {
     <tr key={listing.id} className="border-t">
       <td className="p-2 border">{listing.title}</td>
       <td className="p-2 border">₹{listing.price}</td>
-      <td className="p-2 border">{listing.area} acres</td>
+      <td className="p-2 border">{listing.area} {t('landSelling.acres')}</td>
       <td className="p-2 border">{listing.location.join(", ")}</td>
       <td className="p-2 border">
         {new Date(listing.createdAt).toLocaleString()}
@@ -231,7 +232,7 @@ export default function Landselling() {
           className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md transition duration-200"
           onClick={() => handleContactSeller(listing)}
         >
-          Contact Seller
+          {t('directMarket.contactSeller')}
         </button>
       </td>
     </tr>

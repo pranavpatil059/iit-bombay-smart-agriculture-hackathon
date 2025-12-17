@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Load routes with error handling
-let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, iotRoutes;
+let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes;
 
 try {
     airoute = require("./routes/airoutes");
@@ -14,7 +14,7 @@ try {
     wildlifeRoutes = require("./routes/enhancedWildlifeRoutes");
     hackathonRoutes = require("./routes/hackathonRoutes");
     internationalFeaturesRoutes = require("./routes/internationalFeaturesRoutes");
-    iotRoutes = require("./routes/iotRoutes");
+    farmLoansRoutes = require("./routes/farmLoans");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -60,7 +60,10 @@ app.get('/', (req, res) => {
             '/api/international/research/analytics - Research Analytics',
             '/api/ai - Smart Agriculture AI',
             '/api/tech - Technology Stack',
-            '/api/hackathon - Hackathon Information'
+            '/api/hackathon - Hackathon Information',
+            '/api/farm-loans/banks - Agricultural Bank Directory',
+            '/api/farm-loans/calculate-emi - Loan EMI Calculator',
+            '/api/farm-loans/schemes - Government Loan Schemes'
         ]
     });
 });
@@ -90,6 +93,12 @@ try {
     } else {
         console.log('⚠️ IoT routes not loaded');
     }
+    app.use("/api/ai", airoute);
+    app.use('/api/tech', techRoutes);
+    app.use('/api/hackathon', hackathonRoutes);
+    app.use('/api/wildlife', wildlifeRoutes);
+    app.use('/api/international', internationalFeaturesRoutes);
+    app.use('/api/farm-loans', farmLoansRoutes);
 } catch (error) {
     console.error('Route loading error:', error);
 }

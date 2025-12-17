@@ -1,0 +1,38 @@
+{
+  "common": {
+    "welcome": "ڀلي ڪري آيا",
+    "loading": "لوڊ ٿي رهيو آهي...",
+    "error": "غلطي",
+    "success": "ڪاميابي",
+    "cancel": "منسوخ ڪريو",
+    "save": "محفوظ ڪريو",
+    "edit": "تبديل ڪريو",
+    "delete": "ڊليٽ ڪريو",
+    "search": "ڳوليو",
+    "filter": "فلٽر",
+    "apply": "درخواست ڏيو",
+    "submit": "جمع ڪريو",
+    "back": "واپس",
+    "next": "اڳيون",
+    "previous": "پوئين",
+    "close": "بند ڪريو",
+    "open": "کوليو",
+    "yes": "ها",
+    "no": "نه"
+  },
+  "navigation": {
+    "home": "گهر",
+    "farmLoans": "زرعي قرض",
+    "priceEstimation": "قيمت جو اندازو",
+    "governmentSchemes": "سرڪاري اسڪيمون",
+    "cropHealth": "فصل جي صحت",
+    "directMarket": "سڌي مارڪيٽ",
+    "weather": "موسم",
+    "profile": "پروفائل",
+    "settings": "سيٽنگس",
+    "logout": "لاگ آئوٽ"
+  },
+  "selectLanguage": "ٻولي چونڊيو",
+  "farmerFriendly": "هاري دوست انٽرفيس",
+  "changeLanguage": "ٻولي تبديل ڪريو"
+}

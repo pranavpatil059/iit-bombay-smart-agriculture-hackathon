@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PriceEstimation from "./pages/PriceEstimation";
@@ -25,15 +26,17 @@ import TokenForm from "./pages/TokenForm";
 import TokenAllotment from "./pages/TokenAllotment";
 import Workplace from "./pages/workplace";
 import IoTMonitoring from "./pages/IoTMonitoring";
+import FarmLoans from "./pages/FarmLoans";
 const queryClient = new QueryClient();
 import Prices from "./pages/Prices";
 const App = () => (
   <ThemeProvider defaultTheme="system" storageKey="agri-aide-theme">
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/price-estimation" element={<PriceEstimation />} />
@@ -55,6 +58,7 @@ const App = () => (
             <Route path="/allottoken" element={<TokenAllotment />}/>
             <Route path='/workplace' element={<Workplace></Workplace>}></Route>
             <Route path="/iot-monitoring" element={<IoTMonitoring />} />
+            <Route path="/farm-loans" element={<FarmLoans />} />
             {/* <Route path="/voice-control" element={<VoiceControl />} /> */}
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -63,6 +67,7 @@ const App = () => (
         {/* Replace the simple button with the chatbot component */}
       </TooltipProvider>
     </QueryClientProvider>
+    </LanguageProvider>
   </ThemeProvider>
 );
 

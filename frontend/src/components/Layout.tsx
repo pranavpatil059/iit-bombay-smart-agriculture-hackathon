@@ -2,12 +2,16 @@
 import { ReactNode } from 'react';
 import Navbar from './Navbar';
 import { Toaster } from "@/components/ui/toaster";
+import LanguageSelector from './LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-white relative overflow-x-hidden">
       {/* Enhanced Background patterns */}
@@ -24,6 +28,12 @@ const Layout = ({ children }: LayoutProps) => {
       </div>
       
       <Navbar />
+      
+      {/* Floating Language Selector */}
+      <div className="fixed top-20 right-4 z-50">
+        <LanguageSelector />
+      </div>
+      
       <main className="flex-1 page-transition relative z-10">
         {children}
       </main>
@@ -35,40 +45,40 @@ const Layout = ({ children }: LayoutProps) => {
             {/* Brand Section */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                🌾 Smart Agriculture Hub
+                🌾 {t('footer.brandTitle')}
               </h3>
               <p className="text-gray-300 mb-4 leading-relaxed">
-                Empowering 600M+ Indian farmers with AI-powered solutions for crop health, price prediction, and smart farming techniques.
+                {t('footer.brandDescription')}
               </p>
               <div className="flex space-x-4">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                  <span className="text-sm font-semibold">🏆 IIT Bombay Winner</span>
+                  <span className="text-sm font-semibold">🏆 {t('footer.iitBombayWinner')}</span>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                  <span className="text-sm font-semibold">⚡ 95% AI Accuracy</span>
+                  <span className="text-sm font-semibold">⚡ {t('footer.aiAccuracy')}</span>
                 </div>
               </div>
             </div>
             
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h4>
               <ul className="space-y-2">
-                <li><a href="/crop-health" className="text-gray-300 hover:text-green-400 transition-colors">Crop Health Scanner</a></li>
-                <li><a href="/price-estimation" className="text-gray-300 hover:text-green-400 transition-colors">Price Calculator</a></li>
-                <li><a href="/government-schemes" className="text-gray-300 hover:text-green-400 transition-colors">Government Schemes</a></li>
-                <li><a href="/direct-market" className="text-gray-300 hover:text-green-400 transition-colors">Market Access</a></li>
+                <li><a href="/crop-health" className="text-gray-300 hover:text-green-400 transition-colors">{t('footer.cropHealthScanner')}</a></li>
+                <li><a href="/price-estimation" className="text-gray-300 hover:text-green-400 transition-colors">{t('footer.priceCalculator')}</a></li>
+                <li><a href="/government-schemes" className="text-gray-300 hover:text-green-400 transition-colors">{t('footer.governmentSchemes')}</a></li>
+                <li><a href="/direct-market" className="text-gray-300 hover:text-green-400 transition-colors">{t('footer.marketAccess')}</a></li>
               </ul>
             </div>
             
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Contact</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.contact')}</h4>
               <ul className="space-y-2 text-gray-300">
                 <li>📧 support@smartagri.in</li>
                 <li>📱 +91 98765 43210</li>
-                <li>🌐 Pan-India Support</li>
-                <li>🕒 24/7 AI Assistance</li>
+                <li>🌐 {t('footer.panIndiaSupport')}</li>
+                <li>🕒 {t('footer.aiAssistance')}</li>
               </ul>
             </div>
           </div>
@@ -77,11 +87,11 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="border-t border-white/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} Smart Agriculture Hub. Built with ❤️ for Indian Farmers.
+                © {new Date().getFullYear()} {t('footer.copyright')}
               </p>
               <div className="flex items-center space-x-6 mt-4 md:mt-0">
-                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">Terms of Service</a>
+                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">{t('footer.privacyPolicy')}</a>
+                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors text-sm">{t('footer.termsOfService')}</a>
                 <a href="https://github.com/pranavpatil059/iit-bombay-smart-agriculture" className="text-gray-400 hover:text-green-400 transition-colors text-sm">GitHub</a>
               </div>
             </div>
