@@ -10,6 +10,7 @@ import Layout from '@/components/Layout';
 import { useToast } from "@/hooks/use-toast";
 import axios from 'axios';
 import EnhancedParticleBackground from '@/components/EnhancedParticleBackground';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Bank {
   id: string;
@@ -28,6 +29,7 @@ interface Bank {
 
 const FarmLoans = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [banks, setBanks] = useState<Bank[]>([]);
   const [loading, setLoading] = useState(true);
   const [loanAmount, setLoanAmount] = useState('');
@@ -263,9 +265,9 @@ const FarmLoans = () => {
       
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">🏦 Farm Loan Hub</h1>
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">🏦 {t('farmLoans.title')}</h1>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto drop-shadow-md">
-            Connect with banks offering low-interest agricultural loans. Compare rates, calculate EMI, and apply directly through official bank websites.
+            {t('farmLoans.subtitle')}
           </p>
         </div>
 

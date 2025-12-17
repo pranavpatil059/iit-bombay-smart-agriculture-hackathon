@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Bell, 
   Calendar, 
@@ -32,6 +33,7 @@ import {
 } from 'lucide-react';
 
 const FarmerSchemesHub = () => {
+  const { t } = useLanguage();
   const [selectedState, setSelectedState] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('schemes');

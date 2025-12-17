@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -25,6 +26,7 @@ import {
 } from 'lucide-react';
 
 const ModernDirectMarket = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('mumbai-markets');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -463,12 +465,12 @@ const ModernDirectMarket = () => {
         <div className="text-center mb-8">
           <Badge className="mb-4 px-4 py-2 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg">
             <Globe className="mr-2 h-4 w-4" />
-            Real-Time Agricultural Marketplace
+            {t('directMarket.realTimeMarketplace')}
           </Badge>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-4">
-            Smart Direct Market
+            {t('directMarket.title')}
           </h1>
-          <p className="text-gray-600 text-lg">Live prices, direct connections, zero middlemen</p>
+          <p className="text-gray-600 text-lg">{t('directMarket.subtitle')}</p>
         </div>
 
         {/* Search and Filters */}
@@ -478,7 +480,7 @@ const ModernDirectMarket = () => {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Search crops, sellers, locations..."
+                  placeholder={t('directMarket.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 border-2 border-gray-200 focus:border-green-500"
@@ -489,11 +491,11 @@ const ModernDirectMarket = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-500"
               >
-                <option value="all">All Categories</option>
-                <option value="grains">Grains (अनाज)</option>
-                <option value="vegetables">Vegetables (सब्जी)</option>
-                <option value="fruits">Fruits (फल)</option>
-                <option value="cash-crops">Cash Crops</option>
+                <option value="all">{t('directMarket.allCategories')}</option>
+                <option value="grains">{t('directMarket.grains')}</option>
+                <option value="vegetables">{t('directMarket.vegetables')}</option>
+                <option value="fruits">{t('directMarket.fruits')}</option>
+                <option value="cash-crops">{t('directMarket.cashCrops')}</option>
               </select>
             </div>
           </CardContent>

@@ -7,8 +7,10 @@ import { User, MapPin,  Phone, Mail, Sprout } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import ParticleBackground from "@/components/ParticleBackground";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const FarmerForm: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     area: "",
@@ -61,7 +63,7 @@ const FarmerForm: React.FC = () => {
       <div className="min-h-[calc(100vh-160px)] flex items-center justify-center py-12 relative z-10">
         <div className="max-w-md w-full mx-auto p-6 rounded-lg border border-red-500/20 shadow-2xl bg-black/70 backdrop-blur-md">
           <h2 className="text-2xl font-bold text-center mb-6 text-white">
-            🌾 Farmer Portal
+            🌾 {t('farmerForm.title')}
           </h2>
 
           <div className="mb-8">
@@ -71,7 +73,7 @@ const FarmerForm: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">
-                  Register New Account
+                  {t('farmerForm.registerAccount')}
                 </span>
               </div>
             </div>
@@ -86,7 +88,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Name"
+                  placeholder={t('farmerForm.name')}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -101,7 +103,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="text"
                   name="area"
-                  placeholder="Area"
+                  placeholder={t('farmerForm.area')}
                   value={formData.area}
                   onChange={handleChange}
                   required
@@ -116,7 +118,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="number"
                   name="landArea"
-                  placeholder="Land Area"
+                  placeholder={t('farmerForm.landArea')}
                   value={formData.landArea}
                   onChange={handleChange}
                   required
@@ -131,7 +133,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="text"
                   name="phone"
-                  placeholder="Phone Number"
+                  placeholder={t('farmerForm.phone')}
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -146,7 +148,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder={t('farmerForm.email')}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -160,7 +162,7 @@ const FarmerForm: React.FC = () => {
   <input
     type="password"
     name="password"
-    placeholder="Password"
+    placeholder={t('farmerForm.password')}
     value={formData.password}
     onChange={handleChange}
     required
@@ -175,7 +177,7 @@ const FarmerForm: React.FC = () => {
                 <input
                   type="text"
                   name="selectedCrop"
-                  placeholder="Selected Crop"
+                  placeholder={t('farmerForm.selectedCrop')}
                   value={formData.selectedCrop}
                   onChange={handleChange}
                   className="w-full pl-10 pr-3 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
@@ -184,7 +186,7 @@ const FarmerForm: React.FC = () => {
             </div>
 
             <button className="w-full py-2 font-semibold rounded-md bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
-              Register
+              {t('farmerForm.register')}
             </button>
           </form>
 
@@ -195,7 +197,7 @@ const FarmerForm: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">
-                  Already Registered?
+                  {t('farmerForm.loginAccount')}
                 </span>
               </div>
             </div>
@@ -208,7 +210,7 @@ const FarmerForm: React.FC = () => {
               </div>
               <input
                 type="text"
-                placeholder="Enter Phone Number"
+                placeholder={t('farmerForm.enterPhone')}
                 value={phoneInput}
                 onChange={(e) => setPhoneInput(e.target.value)}
                 required
@@ -221,7 +223,7 @@ const FarmerForm: React.FC = () => {
   </div>
   <input
     type="password"
-    placeholder="Enter Password"
+    placeholder={t('farmerForm.password')}
     value={password}
     onChange={(e) => setPasswordInput(e.target.value)}
     required
@@ -229,7 +231,7 @@ const FarmerForm: React.FC = () => {
   />
 </div>
             <button className="w-full py-2 font-semibold rounded-md bg-secondary hover:bg-secondary/90 text-secondary-foreground transition-colors">
-              View Details
+              {t('farmerForm.login')}
             </button>
           </form>
         </div>
