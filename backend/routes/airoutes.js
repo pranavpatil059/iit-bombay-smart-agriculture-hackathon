@@ -31,7 +31,8 @@ router.post("/chatboat", async (req, res) => {
   } catch (error) {
     console.error("Error generating AI response:", error);
     // Fallback response if Gemini API fails
-    r success: false,
+    res.json({
+      success: false,
       error: "Failed to generate AI response. Please check your Gemini API key.",
       details: error.message
     });

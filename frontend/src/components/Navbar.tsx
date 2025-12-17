@@ -47,6 +47,7 @@ const Navbar = () => {
       path: "/wether",
       icon: <Cloud className="w-4 h-4 mr-1" />,
     },
+    { name: "Soil Monitoring", path: "/iot-monitoring" },
     { name: "Login", path: "/farmerform" },
     { name: "WorkPlace", path: "/workplace" },
   ];

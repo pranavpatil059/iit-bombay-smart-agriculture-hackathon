@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Load routes with error handling
-let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes;
+let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, iotRoutes;
 
 try {
     airoute = require("./routes/airoutes");
@@ -14,6 +14,7 @@ try {
     wildlifeRoutes = require("./routes/enhancedWildlifeRoutes");
     hackathonRoutes = require("./routes/hackathonRoutes");
     internationalFeaturesRoutes = require("./routes/internationalFeaturesRoutes");
+    iotRoutes = require("./routes/iotRoutes");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -78,11 +79,17 @@ if (mongoURI && mongoURI !== 'mongodb://localhost:27017/agriculture') {
 
 // Routes with error handling
 try {
-    app.use("/api/ai", airoute);
-    app.use('/api/tech', techRoutes);
-    app.use('/api/hackathon', hackathonRoutes);
-    app.use('/api/wildlife', wildlifeRoutes);
-    app.use('/api/international', internationalFeaturesRoutes);
+    if (airoute) app.use("/api/ai", airoute);
+    if (techRoutes) app.use('/api/tech', techRoutes);
+    if (hackathonRoutes) app.use('/api/hackathon', hackathonRoutes);
+    if (wildlifeRoutes) app.use('/api/wildlife', wildlifeRoutes);
+    if (internationalFeaturesRoutes) app.use('/api/international', internationalFeaturesRoutes);
+    if (iotRoutes) {
+        app.use('/api/iot', iotRoutes);
+        console.log('✅ IoT routes loaded successfully');
+    } else {
+        console.log('⚠️ IoT routes not loaded');
+    }
 } catch (error) {
     console.error('Route loading error:', error);
 }
