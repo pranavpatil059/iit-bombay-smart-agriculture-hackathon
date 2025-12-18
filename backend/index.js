@@ -14,7 +14,7 @@ try {
     wildlifeRoutes = require("./routes/enhancedWildlifeRoutes");
     hackathonRoutes = require("./routes/hackathonRoutes");
     internationalFeaturesRoutes = require("./routes/internationalFeaturesRoutes");
-    farmLoansRoutes = require("./routes/farmLoans");
+    iotRoutes = require("./routes/iotRoutes");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -82,12 +82,17 @@ if (mongoURI && mongoURI !== 'mongodb://localhost:27017/agriculture') {
 
 // Routes with error handling
 try {
-    app.use("/api/ai", airoute);
-    app.use('/api/tech', techRoutes);
-    app.use('/api/hackathon', hackathonRoutes);
-    app.use('/api/wildlife', wildlifeRoutes);
-    app.use('/api/international', internationalFeaturesRoutes);
-    app.use('/api/farm-loans', farmLoansRoutes);
+    if (airoute) app.use("/api/ai", airoute);
+    if (techRoutes) app.use('/api/tech', techRoutes);
+    if (hackathonRoutes) app.use('/api/hackathon', hackathonRoutes);
+    if (wildlifeRoutes) app.use('/api/wildlife', wildlifeRoutes);
+    if (internationalFeaturesRoutes) app.use('/api/international', internationalFeaturesRoutes);
+    if (iotRoutes) {
+        app.use('/api/iot', iotRoutes);
+        console.log('✅ IoT routes loaded successfully');
+    } else {
+        console.log('⚠️ IoT routes not loaded');
+    }
 } catch (error) {
     console.error('Route loading error:', error);
 }
