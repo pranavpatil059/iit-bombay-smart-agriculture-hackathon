@@ -25,6 +25,7 @@ import UpdateCrop from "./pages/UpdateCrop";
 import TokenForm from "./pages/TokenForm";
 import TokenAllotment from "./pages/TokenAllotment";
 import Workplace from "./pages/workplace";
+import IoTMonitoring from "./pages/IoTMonitoring";
 import FarmLoans from "./pages/FarmLoans";
 import Transportation from "./pages/Transportation";
 const queryClient = new QueryClient();

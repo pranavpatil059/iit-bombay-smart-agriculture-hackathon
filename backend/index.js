@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Load routes with error handling
-let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes, transportationRoutes;
+let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes, transportationRoutes, iotRoutes;
 
 try {
     airoute = require("./routes/airoutes");
@@ -16,6 +16,7 @@ try {
     internationalFeaturesRoutes = require("./routes/internationalFeaturesRoutes");
     farmLoansRoutes = require("./routes/farmLoans");
     transportationRoutes = require("./routes/transportationRoutes");
+    iotRoutes = require("./routes/iotRoutes");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -69,7 +70,10 @@ app.get('/', (req, res) => {
             '/api/transportation/requests - Transport Request Management',
             '/api/transportation/live-tracking/:tripId - Live GPS Tracking',
             '/api/transportation/book/:transporterId - Book Transporter',
-            '/api/transportation/estimate-price - Price Estimation'
+            '/api/transportation/estimate-price - Price Estimation',
+            '/api/iot/soil-data - Real-time Soil Monitoring',
+            '/api/iot/sensors - IoT Sensor Management',
+            '/api/iot/analytics - Soil Analytics Dashboard'
         ]
     });
 });
@@ -88,13 +92,19 @@ if (mongoURI && mongoURI !== 'mongodb://localhost:27017/agriculture') {
 
 // Routes with error handling
 try {
-    app.use("/api/ai", airoute);
-    app.use('/api/tech', techRoutes);
-    app.use('/api/hackathon', hackathonRoutes);
-    app.use('/api/wildlife', wildlifeRoutes);
-    app.use('/api/international', internationalFeaturesRoutes);
-    app.use('/api/farm-loans', farmLoansRoutes);
-    app.use('/api/transportation', transportationRoutes);
+    if (airoute) app.use("/api/ai", airoute);
+    if (techRoutes) app.use('/api/tech', techRoutes);
+    if (hackathonRoutes) app.use('/api/hackathon', hackathonRoutes);
+    if (wildlifeRoutes) app.use('/api/wildlife', wildlifeRoutes);
+    if (internationalFeaturesRoutes) app.use('/api/international', internationalFeaturesRoutes);
+    if (farmLoansRoutes) app.use('/api/farm-loans', farmLoansRoutes);
+    if (transportationRoutes) app.use('/api/transportation', transportationRoutes);
+    if (iotRoutes) {
+        app.use('/api/iot', iotRoutes);
+        console.log('✅ IoT routes loaded successfully');
+    } else {
+        console.log('⚠️ IoT routes not loaded');
+    }
 } catch (error) {
     console.error('Route loading error:', error);
 }
@@ -115,6 +125,9 @@ const PORT = process.env.PORT || 10001;
 if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
         console.log(`🚀 Server running on http://localhost:${PORT}`);
+        console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`🌐 Access the API at: http://localhost:${PORT}`);
+        console.log(`✅ Ready to accept requests!`);
     });
 }
 

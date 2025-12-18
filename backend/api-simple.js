@@ -65,7 +65,7 @@ app.get('/api/health', (req, res) => {
 app.get('/api/tech/stack', (req, res) => {
     const techStack = {
         frontend: ["React 18", "Vite", "TypeScript", "Tailwind CSS"],
-        backend: ["Node.js", "Express", "MongoDB", "JWT"],
+        backend: ["Node.js", "Express", "MongoDB", "JWT"], 
         ai_ml: ["Google Gemini AI", "TensorFlow", "Computer Vision"],
         iot: ["Raspberry Pi 4", "Pi Camera V2", "Environmental Sensors"],
         cloud: ["Vercel", "Railway", "MongoDB Atlas", "AWS Ready"]
