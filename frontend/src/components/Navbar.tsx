@@ -73,16 +73,23 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <span className={`rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold overflow-hidden ${isBasicPhone ? 'h-6 w-6' : 'h-8 w-8'}`}>
+              <span className={`rounded-full bg-white flex items-center justify-center text-primary-foreground font-bold overflow-hidden border-2 border-primary/20 ${isBasicPhone ? 'h-8 w-8' : 'h-10 w-10'}`}>
                 <img
-                  src={image}
-                  alt="KrishiHub"
-                  className="h-full w-full object-cover"
+                  src="/kisan-logo.svg"
+                  alt="KISAN - AI & Agriculture Safety Smart Hub"
+                  className="h-full w-full object-contain p-1"
                 />
               </span>
-              <span className={`font-semibold ${isBasicPhone ? 'text-xs' : 'text-sm md:text-base'}`}>
-                {isBasicPhone ? 'किसान हब' : t('navigation.projectKisan')}
-              </span>
+              <div className="flex flex-col">
+                <span className={`font-bold text-primary ${isBasicPhone ? 'text-xs' : 'text-sm md:text-base'}`}>
+                  {isBasicPhone ? 'KISAN' : 'KISAN'}
+                </span>
+                {!isBasicPhone && (
+                  <span className="text-xs text-muted-foreground -mt-1">
+                    AI & Agriculture Safety
+                  </span>
+                )}
+              </div>
             </Link>
           </div>
 
