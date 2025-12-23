@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 // Load routes with error handling
-let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes, transportationRoutes, iotRoutes;
+let airoute, techRoutes, hackathonRoutes, wildlifeRoutes, internationalFeaturesRoutes, farmLoansRoutes, transportationRoutes, iotRoutes, feedbackRoutes, loraRoutes;
 
 try {
     airoute = require("./routes/airoutes");
@@ -17,6 +17,8 @@ try {
     farmLoansRoutes = require("./routes/farmLoans");
     transportationRoutes = require("./routes/transportationRoutes");
     iotRoutes = require("./routes/iotRoutes");
+    feedbackRoutes = require("./routes/feedbackRoutes");
+    loraRoutes = require("./routes/loraRoutes");
 } catch (error) {
     console.error('Error loading routes:', error.message);
 }
@@ -30,8 +32,20 @@ const AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
 // Middleware
-app.use(cors());
-app.use(express.json()); // To parse JSON request bodies
+app.use(cors({
+  origin: [
+    'https://iit-bombay-agriculture-frontend-rch364xjw.vercel.app',
+    'https://iit-bombay-agriculture-frontend-pceytp5tf.vercel.app',
+    'https://iit-bombay-agriculture-frontend-ek4c748nn.vercel.app',
+    'https://iit-bombay-agriculture-frontend-cdvv9bw9r.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true
+}));
+app.use(express.json({ limit: '50mb' })); // To parse JSON request bodies
 
 // Basic health check route
 app.get('/', (req, res) => {
@@ -73,8 +87,33 @@ app.get('/', (req, res) => {
             '/api/transportation/estimate-price - Price Estimation',
             '/api/iot/soil-data - Real-time Soil Monitoring',
             '/api/iot/sensors - IoT Sensor Management',
-            '/api/iot/analytics - Soil Analytics Dashboard'
+            '/api/iot/analytics - Soil Analytics Dashboard',
+            '/api/lora/devices - LoRa Device Management',
+            '/api/lora/scan - Scan for LoRa Devices',
+            '/api/lora/network-status - LoRa Network Status',
+            '/api/lora/analytics - LoRa Network Analytics',
+            '/api/test - Test Connectivity',
+            '/api/feedback - Farmer Feedback System'
         ]
+    });
+});
+
+// Simple test endpoint for connectivity
+app.get('/api/test', (req, res) => {
+    res.json({
+        message: 'API is working!',
+        timestamp: new Date().toISOString(),
+        status: 'success'
+    });
+});
+
+// Test POST endpoint
+app.post('/api/test', (req, res) => {
+    res.json({
+        message: 'POST request working!',
+        receivedData: req.body,
+        timestamp: new Date().toISOString(),
+        status: 'success'
     });
 });
 
@@ -104,6 +143,18 @@ try {
         console.log('✅ IoT routes loaded successfully');
     } else {
         console.log('⚠️ IoT routes not loaded');
+    }
+    if (loraRoutes) {
+        app.use('/api/lora', loraRoutes);
+        console.log('✅ LoRa routes loaded successfully');
+    } else {
+        console.log('⚠️ LoRa routes not loaded');
+    }
+    if (feedbackRoutes) {
+        app.use('/api', feedbackRoutes);
+        console.log('✅ Feedback routes loaded successfully');
+    } else {
+        console.log('⚠️ Feedback routes not loaded');
     }
 } catch (error) {
     console.error('Route loading error:', error);

@@ -46,6 +46,7 @@ const FarmLoans = () => {
       // Try multiple API endpoints
       let response;
       const apiEndpoints = [
+        'https://iit-bombay-agriculture-backend-13r8y1oea.vercel.app/api/farm-loans/banks',
         'https://iit-bombay-agriculture-backend.vercel.app/api/farm-loans/banks',
         'http://localhost:10001/api/farm-loans/banks',
         'http://localhost:10000/api/farm-loans/banks'

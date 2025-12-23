@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Layout from '@/components/Layout';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FarmerCard, ResponsiveGrid, FarmerButton, useDeviceInfo } from '@/components/FarmerResponsive';
 
 
 const Index = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { isBasicPhone, isMidRange } = useDeviceInfo();
 
   useEffect(() => {
     toast({
@@ -62,128 +64,122 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50">
+      <section className={`${isBasicPhone ? 'py-12' : 'py-24'} px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50`}>
         <div className="container mx-auto text-center">
-          <Badge className="mb-6 bg-green-600 text-white text-lg px-4 py-2">
+          <Badge className={`mb-6 bg-green-600 text-white px-4 py-2 ${isBasicPhone ? 'text-base' : 'text-lg'}`}>
             🏆 {t('homepage.hackathonBadge')}
           </Badge>
-          <h1 className="text-6xl font-bold text-gray-800 mb-6">
+          <h1 className={`font-bold text-gray-800 mb-6 ${isBasicPhone ? 'text-3xl' : 'text-6xl'}`}>
             🌾 {t('homepage.mainTitle')}
           </h1>
-          <p className="text-2xl text-gray-600 max-w-4xl mx-auto mb-12">
+          <p className={`text-gray-600 max-w-4xl mx-auto mb-12 ${isBasicPhone ? 'text-lg' : 'text-2xl'}`}>
             {t('homepage.mainSubtitle')}
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="p-6 bg-white rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🤖</div>
-              <h3 className="text-xl font-bold mb-2">{t('homepage.aiPowered')}</h3>
-              <p className="text-gray-600">{t('homepage.aiDescription')}</p>
+          <ResponsiveGrid className="mb-12">
+            <div className={`p-6 bg-white rounded-lg shadow-lg ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-4 ${isBasicPhone ? 'text-3xl' : 'text-4xl'}`}>🤖</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-lg' : 'text-xl'}`}>{t('homepage.aiPowered')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-sm' : 'text-base'}`}>{t('homepage.aiDescription')}</p>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🌤️</div>
-              <h3 className="text-xl font-bold mb-2">{t('homepage.liveWeather')}</h3>
-              <p className="text-gray-600">{t('homepage.weatherDescription')}</p>
+            <div className={`p-6 bg-white rounded-lg shadow-lg ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-4 ${isBasicPhone ? 'text-3xl' : 'text-4xl'}`}>🌤️</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-lg' : 'text-xl'}`}>{t('homepage.liveWeather')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-sm' : 'text-base'}`}>{t('homepage.weatherDescription')}</p>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🐆</div>
-              <h3 className="text-xl font-bold mb-2">{t('homepage.wildlifeProtection')}</h3>
-              <p className="text-gray-600">{t('homepage.wildlifeDescription')}</p>
+            <div className={`p-6 bg-white rounded-lg shadow-lg ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-4 ${isBasicPhone ? 'text-3xl' : 'text-4xl'}`}>🐆</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-lg' : 'text-xl'}`}>{t('homepage.wildlifeProtection')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-sm' : 'text-base'}`}>{t('homepage.wildlifeDescription')}</p>
             </div>
-          </div>
+          </ResponsiveGrid>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700" asChild>
-              <Link to="/farmshield">🐆 {t('homepage.farmShieldPro')}</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/wether">🌤️ {t('homepage.liveWeatherBtn')}</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/crop-health">🔬 {t('homepage.cropAnalysis')}</Link>
-            </Button>
+          <div className={`flex gap-4 justify-center ${isBasicPhone ? 'flex-col' : 'flex-col sm:flex-row'}`}>
+            <FarmerButton size="large" variant="primary">
+              <Link to="/farmshield" className="flex items-center gap-2">🐆 {t('homepage.farmShieldPro')}</Link>
+            </FarmerButton>
+            <FarmerButton size="large" variant="secondary">
+              <Link to="/wether" className="flex items-center gap-2">🌤️ {t('homepage.liveWeatherBtn')}</Link>
+            </FarmerButton>
+            <FarmerButton size="large" variant="success">
+              <Link to="/crop-health" className="flex items-center gap-2">🔬 {t('homepage.cropAnalysis')}</Link>
+            </FarmerButton>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <section className={`${isBasicPhone ? 'py-12' : 'py-24'} px-4 sm:px-6 lg:px-8`}>
         <div className="container mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">{t('messages.ourFeatures')}</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className={`font-bold text-gray-800 mb-4 ${isBasicPhone ? 'text-2xl' : 'text-4xl'}`}>{t('messages.ourFeatures')}</h2>
+            <p className={`text-gray-600 ${isBasicPhone ? 'text-base' : 'text-xl'}`}>
               {t('messages.comprehensiveSolutions')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+          <ResponsiveGrid>
             {features.map((feature, index) => (
-              <Link to={feature.link} key={index} className="block hover:no-underline">
-                <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow border">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 bg-green-100 rounded-lg">
-                      {feature.icon}
-                    </div>
-                    <Badge className="bg-green-600 text-white text-xs">{feature.chip}</Badge>
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
-                </div>
-              </Link>
+              <FarmerCard
+                key={index}
+                title={feature.title}
+                content={feature.description}
+                icon={feature.icon}
+                href={feature.link}
+              />
             ))}
-          </div>
+          </ResponsiveGrid>
         </div>
       </section>
 
       {/* FarmShield Pro Section */}
-      <section className="py-16 bg-gradient-to-br from-orange-50 to-red-50">
+      <section className={`${isBasicPhone ? 'py-8' : 'py-16'} bg-gradient-to-br from-orange-50 to-red-50`}>
         <div className="container mx-auto px-4 text-center">
-          <Badge className="mb-4 bg-gradient-to-r from-orange-600 to-red-600 text-white text-lg px-4 py-2">
+          <Badge className={`mb-4 bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-2 ${isBasicPhone ? 'text-base' : 'text-lg'}`}>
             🐆 {t('homepage.newWildlifeAI')}
           </Badge>
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
+          <h2 className={`font-bold text-gray-800 mb-6 ${isBasicPhone ? 'text-2xl' : 'text-4xl'}`}>
             {t('homepage.farmShieldTitle')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className={`text-gray-600 max-w-3xl mx-auto mb-8 ${isBasicPhone ? 'text-base' : 'text-xl'}`}>
             {t('homepage.farmShieldDescription')}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="p-6 bg-white rounded-lg border-2 border-orange-200">
-              <div className="text-3xl mb-3">🚨</div>
-              <h3 className="font-bold mb-2">{t('homepage.realTimeAlerts')}</h3>
-              <p className="text-sm text-gray-600">{t('homepage.alertsDescription')}</p>
+          <ResponsiveGrid className="mb-8">
+            <div className={`p-6 bg-white rounded-lg border-2 border-orange-200 ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-3 ${isBasicPhone ? 'text-2xl' : 'text-3xl'}`}>🚨</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-base' : 'text-lg'}`}>{t('homepage.realTimeAlerts')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-xs' : 'text-sm'}`}>{t('homepage.alertsDescription')}</p>
             </div>
-            <div className="p-6 bg-white rounded-lg border-2 border-red-200">
-              <div className="text-3xl mb-3">🎯</div>
-              <h3 className="font-bold mb-2">{t('homepage.aiAccuracy')}</h3>
-              <p className="text-sm text-gray-600">{t('homepage.accuracyDescription')}</p>
+            <div className={`p-6 bg-white rounded-lg border-2 border-red-200 ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-3 ${isBasicPhone ? 'text-2xl' : 'text-3xl'}`}>🎯</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-base' : 'text-lg'}`}>{t('homepage.aiAccuracy')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-xs' : 'text-sm'}`}>{t('homepage.accuracyDescription')}</p>
             </div>
-            <div className="p-6 bg-white rounded-lg border-2 border-yellow-200">
-              <div className="text-3xl mb-3">📍</div>
-              <h3 className="font-bold mb-2">{t('homepage.districtsCoverage')}</h3>
-              <p className="text-sm text-gray-600">{t('homepage.coverageDescription')}</p>
+            <div className={`p-6 bg-white rounded-lg border-2 border-yellow-200 ${isBasicPhone ? 'p-4' : 'p-6'}`}>
+              <div className={`mb-3 ${isBasicPhone ? 'text-2xl' : 'text-3xl'}`}>📍</div>
+              <h3 className={`font-bold mb-2 ${isBasicPhone ? 'text-base' : 'text-lg'}`}>{t('homepage.districtsCoverage')}</h3>
+              <p className={`text-gray-600 ${isBasicPhone ? 'text-xs' : 'text-sm'}`}>{t('homepage.coverageDescription')}</p>
             </div>
-          </div>
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
-            asChild
+          </ResponsiveGrid>
+          <FarmerButton 
+            size="large" 
+            variant="warning"
           >
-            <Link to="/farmshield">🐆 {t('homepage.launchFarmShield')}</Link>
-          </Button>
+            <Link to="/farmshield" className="flex items-center gap-2">🐆 {t('homepage.launchFarmShield')}</Link>
+          </FarmerButton>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-green-600 text-white">
+      <section className={`${isBasicPhone ? 'py-12' : 'py-24'} px-4 sm:px-6 lg:px-8 bg-green-600 text-white`}>
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">{t('messages.readyToTransform')}</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
+          <h2 className={`font-bold mb-6 ${isBasicPhone ? 'text-2xl' : 'text-4xl'}`}>{t('messages.readyToTransform')}</h2>
+          <p className={`mb-8 max-w-3xl mx-auto ${isBasicPhone ? 'text-base' : 'text-xl'}`}>
             {t('messages.joinThousands')}
           </p>
-          <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100" asChild>
+          <FarmerButton size="large" className="bg-white text-green-600 hover:bg-gray-100">
             <Link to="/price-estimation">{t('messages.startJourney')}</Link>
-          </Button>
+          </FarmerButton>
         </div>
       </section>
     </Layout>

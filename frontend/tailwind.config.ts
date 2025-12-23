@@ -15,14 +15,40 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'sm': '640px',
-				'md': '768px',
-				'lg': '1024px',
-				'xl': '1280px',
-				'2xl': '1400px'
+				'xs': '320px',    // Basic phones (Jio Phone, Galaxy J2)
+				'sm': '360px',    // Standard smartphones (Redmi Note)
+				'md': '640px',    // Large smartphones (iPhone, Galaxy S)
+				'lg': '768px',    // Tablets (iPad, Android tablets)
+				'xl': '1024px',   // Desktop
+				'2xl': '1280px',  // Large desktop
 			}
 		},
+		screens: {
+			'xs': '320px',    // Basic phones
+			'sm': '360px',    // Standard smartphones  
+			'md': '640px',    // Large smartphones
+			'lg': '768px',    // Tablets
+			'xl': '1024px',   // Desktop
+			'2xl': '1280px',  // Large desktop
+		},
+		fontSize: {
+			'xs': ['12px', { lineHeight: '16px' }],
+			'sm': ['14px', { lineHeight: '20px' }],
+			'base': ['16px', { lineHeight: '24px' }],
+			'lg': ['18px', { lineHeight: '28px' }],
+			'xl': ['20px', { lineHeight: '32px' }],
+			'2xl': ['24px', { lineHeight: '36px' }],
+			'3xl': ['30px', { lineHeight: '40px' }],
+			'4xl': ['36px', { lineHeight: '48px' }],
+			'5xl': ['48px', { lineHeight: '64px' }],
+		},
 		extend: {
+			spacing: {
+				'safe-top': 'env(safe-area-inset-top)',
+				'safe-bottom': 'env(safe-area-inset-bottom)',
+				'safe-left': 'env(safe-area-inset-left)',
+				'safe-right': 'env(safe-area-inset-right)',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

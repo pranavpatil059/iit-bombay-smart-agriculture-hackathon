@@ -376,7 +376,7 @@ const FarmShieldPro = () => {
         {/* Google Wildlife Map */}
         <GoogleWildlifeMap />
 
-        {/* Real-Time GPS + Bluetooth Wildlife Detection */}
+        {/* Real-Time GPS + LoRa Wildlife Detection */}
         <RealTimeWildlifeDetector />
 
         {/* International Features Hub */}

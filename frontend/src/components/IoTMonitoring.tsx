@@ -111,7 +111,7 @@ const IoTMonitoring = () => {
     { time: '10:30', moisture: 60, timestamp: new Date().toISOString() }
   ];
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:10001';
 
   // Fetch latest sensor data
   const fetchLatestData = async () => {

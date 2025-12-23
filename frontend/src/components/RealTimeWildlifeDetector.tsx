@@ -4,13 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
   Satellite, 
-  Bluetooth, 
+  Radio, 
   MapPin, 
   AlertTriangle,
   Shield,
   Zap,
   Eye,
-  Radio,
   Wifi,
   Target
 } from 'lucide-react';
@@ -18,10 +17,11 @@ import {
 const RealTimeWildlifeDetector = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [nearbyWildlife, setNearbyWildlife] = useState([]);
-  const [bluetoothDevices, setBluetoothDevices] = useState([]);
+  const [loraDevices, setLoraDevices] = useState([]);
   const [riskLevel, setRiskLevel] = useState(0);
   const [isScanning, setIsScanning] = useState(false);
   const [gpsAccuracy, setGpsAccuracy] = useState(0);
+  const [transcript, setTranscript] = useState('Ready to scan for LoRa devices...');
 
   // Real GPS Location Detection
   useEffect(() => {
@@ -65,34 +65,83 @@ const RealTimeWildlifeDetector = () => {
     return () => clearInterval(locationInterval);
   }, []);
 
-  // Bluetooth Wildlife Beacon Detection
-  const scanBluetoothDevices = async () => {
+  // LoRa Wildlife Beacon Detection
+  const scanLoraDevices = async () => {
     setIsScanning(true);
     try {
-      if (navigator.bluetooth) {
-        const device = await navigator.bluetooth.requestDevice({
-          acceptAllDevices: true,
-          optionalServices: ['battery_service']
-        });
+      const API_URL = import.meta.env.VITE_API_URL || 'https://iit-bombay-agriculture-backend-b0bs5njbo.vercel.app';
+      
+      // Get user location for scanning
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      
+      const { latitude, longitude } = position.coords;
+      
+      // Call LoRa scan API
+      const response = await fetch(`${API_URL}/api/lora/scan?lat=${latitude}&lng=${longitude}&range=15`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('📡 LoRa Scan Result:', data);
         
-        // Simulate wildlife collar/beacon detection
-        const wildlifeBeacons = [
-          { id: 'WL001', name: 'Leopard Collar Alpha', distance: 2.3, signal: -45 },
-          { id: 'WL002', name: 'Tiger Collar Beta', distance: 4.7, signal: -67 },
-          { id: 'WL003', name: 'Bear Collar Gamma', distance: 1.8, signal: -38 }
-        ];
+        setLoraDevices(data.devices || []);
         
-        setBluetoothDevices(wildlifeBeacons);
+        // Update risk based on LoRa devices
+        if (data.devices && data.devices.length > 0) {
+          const closestDistance = Math.min(...data.devices.map(d => d.distance));
+          const newRisk = Math.max(15, Math.min(95, Math.round((6 - closestDistance) * 18)));
+          setRiskLevel(newRisk);
+        }
+        
+        setTranscript(`✅ Found ${data.devices.length} LoRa devices within 15km`);
       } else {
-        // Simulate for demo
-        const simulatedBeacons = [
-          { id: 'SIM001', name: 'Wildlife Sensor #1', distance: 3.2, signal: -52 },
-          { id: 'SIM002', name: 'Camera Trap #7', distance: 1.9, signal: -41 }
-        ];
-        setBluetoothDevices(simulatedBeacons);
+        throw new Error('LoRa API not available');
       }
     } catch (error) {
-      console.error('Bluetooth scan error:', error);
+      console.error('LoRa scan error:', error);
+      
+      // Fallback demo data
+      const simulatedBeacons = [
+        { 
+          id: 'LORA001', 
+          name: 'Leopard Collar Alpha', 
+          distance: 2.3, 
+          signal: -65, 
+          frequency: '868MHz', 
+          battery: 85,
+          deviceType: 'wildlife_collar',
+          animalType: 'leopard'
+        },
+        { 
+          id: 'LORA002', 
+          name: 'Tiger Collar Beta', 
+          distance: 4.7, 
+          signal: -78, 
+          frequency: '868MHz', 
+          battery: 72,
+          deviceType: 'wildlife_collar',
+          animalType: 'tiger'
+        },
+        { 
+          id: 'LORA003', 
+          name: 'Camera Trap Station', 
+          distance: 1.9, 
+          signal: -55, 
+          frequency: '868MHz', 
+          battery: 88,
+          deviceType: 'camera_trap',
+          animalType: 'sensor'
+        }
+      ];
+      
+      setLoraDevices(simulatedBeacons);
+      setTranscript(`📡 Demo: Found ${simulatedBeacons.length} LoRa devices`);
+      
+      // Update risk for demo
+      const closestDistance = Math.min(...simulatedBeacons.map(d => d.distance));
+      const newRisk = Math.max(15, Math.min(95, Math.round((6 - closestDistance) * 18)));
+      setRiskLevel(newRisk);
     }
     setIsScanning(false);
   };
@@ -189,13 +238,13 @@ const RealTimeWildlifeDetector = () => {
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-gradient-to-r from-red-600 to-orange-600 text-white">
             <Satellite className="h-4 w-4 mr-2" />
-            Real-Time GPS + Bluetooth Wildlife Detection
+            Real-Time GPS + LoRa Wildlife Detection
           </Badge>
           <h2 className="text-5xl font-bold text-gray-800 mb-6">
             🛰️ Live Wildlife Proximity Scanner
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Using your device's GPS + Bluetooth to detect wildlife within 5km radius in real-time
+            Using your device's GPS + LoRa to detect wildlife within 15km radius in real-time
           </p>
         </div>
 
@@ -234,11 +283,11 @@ const RealTimeWildlifeDetector = () => {
                 <div className="text-xs text-gray-500 mt-1">Within 5km radius</div>
               </div>
 
-              {/* Bluetooth Devices */}
-              <div className="text-center p-4 bg-white rounded-lg border-2 border-purple-200">
-                <Bluetooth className="h-8 w-8 mx-auto mb-2 text-purple-500" />
-                <div className="text-3xl font-bold text-purple-600">{bluetoothDevices.length}</div>
-                <div className="text-sm text-gray-600">BLE Beacons</div>
+              {/* LoRa Devices */}
+              <div className="text-center p-4 bg-white rounded-lg border-2 border-blue-200">
+                <Radio className="h-8 w-8 mx-auto mb-2 text-blue-500" />
+                <div className="text-3xl font-bold text-blue-600">{loraDevices.length}</div>
+                <div className="text-sm text-gray-600">LoRa Beacons</div>
                 <div className="text-xs text-gray-500 mt-1">Wildlife collars</div>
               </div>
 
@@ -255,7 +304,7 @@ const RealTimeWildlifeDetector = () => {
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold">Real-Time Risk Assessment</span>
-                <span className="text-sm text-gray-600">GPS + Bluetooth + AI Analysis</span>
+                <span className="text-sm text-gray-600">GPS + LoRa + AI Analysis</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-6 relative overflow-hidden">
                 <div 
@@ -275,18 +324,18 @@ const RealTimeWildlifeDetector = () => {
             {/* Scan Button */}
             <div className="text-center">
               <Button 
-                onClick={scanBluetoothDevices}
+                onClick={scanLoraDevices}
                 disabled={isScanning}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 {isScanning ? (
                   <>
                     <Radio className="mr-2 h-4 w-4 animate-spin" />
-                    Scanning Bluetooth...
+                    Scanning LoRa Network...
                   </>
                 ) : (
                   <>
-                    <Bluetooth className="mr-2 h-4 w-4" />
+                    <Radio className="mr-2 h-4 w-4" />
                     Scan for Wildlife Beacons
                   </>
                 )}
@@ -361,31 +410,41 @@ const RealTimeWildlifeDetector = () => {
             </CardContent>
           </Card>
 
-          {/* Bluetooth Beacons */}
-          <Card className="border-2 border-purple-300">
+          {/* LoRa Beacons */}
+          <Card className="border-2 border-blue-300">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Bluetooth className="h-6 w-6 mr-2 text-purple-600" />
-                Bluetooth Wildlife Beacons
+                <Radio className="h-6 w-6 mr-2 text-blue-600" />
+                LoRa Wildlife Beacons
+                <Badge className="ml-2 bg-blue-100 text-blue-800">Long Range</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {bluetoothDevices.length > 0 ? (
+              {loraDevices.length > 0 ? (
                 <div className="space-y-4">
-                  {bluetoothDevices.map((device) => (
+                  {loraDevices.map((device) => (
                     <div key={device.id} className="p-4 bg-white rounded-lg border border-gray-200">
                       <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium">{device.name}</div>
-                        <Badge variant="outline">{device.distance} km</Badge>
+                        <div className="flex items-center">
+                          <Radio className="h-5 w-5 mr-2 text-blue-500" />
+                          <span className="font-semibold">{device.name}</span>
+                        </div>
+                        <Badge className="bg-green-100 text-green-800">
+                          {device.frequency}
+                        </Badge>
                       </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-3 gap-4 text-sm">
                         <div>
-                          <span className="text-gray-600">Signal:</span>
-                          <span className="font-medium ml-2">{device.signal} dBm</span>
+                          <span className="text-gray-500">Distance:</span>
+                          <div className="font-medium">{device.distance} km</div>
                         </div>
                         <div>
-                          <span className="text-gray-600">ID:</span>
-                          <span className="font-mono ml-2">{device.id}</span>
+                          <span className="text-gray-500">Signal:</span>
+                          <div className="font-medium">{device.signal} dBm</div>
+                        </div>
+                        <div>
+                          <span className="text-gray-500">Battery:</span>
+                          <div className="font-medium">{device.battery}%</div>
                         </div>
                       </div>
                     </div>
@@ -393,9 +452,9 @@ const RealTimeWildlifeDetector = () => {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <Wifi className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2">No Beacons Detected</h3>
-                  <p className="text-gray-500">Click scan to search for wildlife collars</p>
+                  <Radio className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-gray-500 mb-2">No LoRa Beacons Detected</p>
+                  <p className="text-sm text-gray-400">Click scan to search for wildlife collars within 15km range</p>
                 </div>
               )}
             </CardContent>

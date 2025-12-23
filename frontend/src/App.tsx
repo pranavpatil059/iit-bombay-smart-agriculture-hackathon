@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { FeedbackProvider } from "@/contexts/FeedbackContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PriceEstimation from "./pages/PriceEstimation";
@@ -30,10 +31,12 @@ import FarmLoans from "./pages/FarmLoans";
 import Transportation from "./pages/Transportation";
 const queryClient = new QueryClient();
 import Prices from "./pages/Prices";
+import FeedbackDashboard from "./pages/FeedbackDashboard";
 const App = () => (
   <ThemeProvider defaultTheme="system" storageKey="agri-aide-theme">
     <LanguageProvider>
-      <QueryClientProvider client={queryClient}>
+      <FeedbackProvider>
+        <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -61,6 +64,8 @@ const App = () => (
             <Route path="/farm-loans" element={<FarmLoans />} />
             <Route path="/transportation" element={<Transportation />} />
             <Route path="/live-tracking" element={<Transportation />} />
+            <Route path="/iot-monitoring" element={<IoTMonitoring />} />
+            <Route path="/feedback-dashboard" element={<FeedbackDashboard />} />
             {/* <Route path="/voice-control" element={<VoiceControl />} /> */}
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -69,6 +74,7 @@ const App = () => (
         {/* Replace the simple button with the chatbot component */}
       </TooltipProvider>
     </QueryClientProvider>
+    </FeedbackProvider>
     </LanguageProvider>
   </ThemeProvider>
 );

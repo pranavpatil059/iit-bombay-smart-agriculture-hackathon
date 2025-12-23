@@ -11,7 +11,7 @@ const TrendIcon = ({ trend }) => {
   return <Minus className="w-4 h-4 text-gray-600 dark:text-gray-400" />;
 };
 
-const PriceCard = ({ crop }) => (
+const PriceCard = ({ crop, t }) => (
   <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
     <div className="flex justify-between items-start mb-4">
       <div>
@@ -41,7 +41,7 @@ const PriceCard = ({ crop }) => (
           ₹{crop.price}
         </span>
         <span className="text-gray-600 dark:text-gray-400 text-sm">
-          {t('prices.perUnit')?.replace('{unit}', crop.unit)}
+          per {crop.unit}
         </span>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default function Prices() {
   const [selectedState, setSelectedState] = useState("All States");
 
   const uniqueStates = [
-    t('prices.allStates'),
+    "All States",
     ...new Set(cropData.map((crop) => crop.state)),
   ];
 
@@ -64,7 +64,7 @@ export default function Prices() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
       const matchesState =
-        selectedState === t('prices.allStates') || crop.state === selectedState;
+        selectedState === "All States" || crop.state === selectedState;
       return matchesSearch && matchesState;
     });
   }, [searchTerm, selectedState]);
@@ -86,10 +86,10 @@ export default function Prices() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-            {t('prices.title')}
+            🌾 Crop Prices - फसल की कीमतें
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            {t('prices.subtitle')}
+            Real-time crop prices across Indian markets - भारतीय बाजारों में वास्तविक समय की फसल की कीमतें
           </p>
 
           {/* Search and Filter Section */}
@@ -100,7 +100,7 @@ export default function Prices() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
                   <input
                     type="text"
-                    placeholder={t('prices.searchPlaceholder')}
+                    placeholder="Search crops... फसल खोजें..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
@@ -126,11 +126,9 @@ export default function Prices() {
           {/* Results Summary */}
           <div className="mb-6">
             <p className="text-gray-600 dark:text-gray-400">
-              {t('prices.showingResults')
-                ?.replace('{count}', filteredCrops.length.toString())
-                ?.replace('{plural}', filteredCrops.length !== 1 ? "s" : "")}
-              {searchTerm && ` ${t('prices.forSearch')?.replace('{search}', searchTerm)}`}
-              {selectedState !== t('prices.allStates') && ` ${t('prices.inState')?.replace('{state}', selectedState)}`}
+              Showing {filteredCrops.length} crop{filteredCrops.length !== 1 ? "s" : ""}
+              {searchTerm && ` for "${searchTerm}"`}
+              {selectedState !== "All States" && ` in ${selectedState}`}
             </p>
           </div>
         </div>
@@ -145,7 +143,7 @@ export default function Prices() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {crops.map((crop) => (
-                    <PriceCard key={crop.id} crop={crop} />
+                    <PriceCard key={crop.id} crop={crop} t={t} />
                   ))}
                 </div>
               </div>
@@ -154,10 +152,10 @@ export default function Prices() {
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('prices.noCropsFound')}
+              No crops found - कोई फसल नहीं मिली
             </div>
             <p className="text-gray-400 dark:text-gray-500 mt-2">
-              {t('prices.adjustSearch')}
+              Try adjusting your search or filter - अपनी खोज या फ़िल्टर को समायोजित करने का प्रयास करें
             </p>
           </div>
         )}
@@ -165,21 +163,21 @@ export default function Prices() {
         {/* Market Info */}
         <div className="mt-12 bg-blue-50 dark:bg-gray-800 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-            {t('prices.marketInformation')}
+            📊 Market Information - बाजार की जानकारी
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div>
-              <strong>{t('prices.priceUpdates')}:</strong> {t('prices.priceUpdatesTime')}
+              <strong>Price Updates:</strong> Every 30 minutes
             </div>
             <div>
-              <strong>{t('prices.currency')}:</strong> {t('prices.currencyValue')}
+              <strong>Currency:</strong> Indian Rupees (₹)
             </div>
             <div>
-              <strong>{t('prices.unit')}:</strong> {t('prices.unitValue')}
+              <strong>Unit:</strong> Per Quintal (100 kg)
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-500 dark:text-gray-500">
-            {t('prices.disclaimer')}
+            Prices are indicative and may vary by location and quality. Always verify with local markets.
           </p>
         </div>
       </div>

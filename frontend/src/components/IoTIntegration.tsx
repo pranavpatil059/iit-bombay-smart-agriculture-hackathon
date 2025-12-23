@@ -11,7 +11,7 @@ import {
   Camera,
   Zap,
   Radio,
-  Bluetooth,
+  Wifi,
   Gauge,
   Activity,
   AlertTriangle
